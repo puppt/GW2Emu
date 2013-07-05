@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Net;
+using GameRevision.GW2Emu.Core.EventDesign;
 
 namespace GameRevision.GW2Emu.Core
 {
-    public interface ISessionListener : IDisposable
+    public interface ISessionListener
     {
-        event EventDesign.SessionCreatedEventHandler SessionCreated;
+        event ClientConnectedEventHandler ClientConnected;
         IPEndPoint EndPoint { get; }
         bool Listening { get; }
         void Listen();
+        void Stop();
     }
 }

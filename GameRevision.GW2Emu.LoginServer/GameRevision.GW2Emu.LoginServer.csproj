@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoginServerApp.cs" />
+    <Compile Include="LoginSession.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

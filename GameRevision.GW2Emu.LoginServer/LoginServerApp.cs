@@ -15,7 +15,7 @@ namespace GameRevision.GW2Emu.LoginServer
             Console.Title = "Login Server (Test)";
 
             this.SessionListener = new SessionListener(IPAddress.Any, 80);
-            this.SessionListener.SessionCreated += OnSessionCreated;
+            this.SessionListener.ClientConnected += OnClientConnected;
             this.SessionListener.Listen();
 
             while (this.SessionListener.Listening)
@@ -25,7 +25,7 @@ namespace GameRevision.GW2Emu.LoginServer
 
                 if (command == "stop")
                 {
-                    this.SessionListener.Dispose();
+                    this.SessionListener.Stop();
                 }
                 else if (command == "help")
                 {
@@ -36,10 +36,9 @@ namespace GameRevision.GW2Emu.LoginServer
             }
         }
 
-        private void OnSessionCreated(ISessionListener sessionListener, SessionCreatedEventArgs e)
+        private void OnClientConnected(ISessionListener sessionListener, ClientConnectedEventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("Session created.");
-            e.Session.NetworkSession.Run();
+            new LoginSession(e.NetworkSession);
         }
     }
 }

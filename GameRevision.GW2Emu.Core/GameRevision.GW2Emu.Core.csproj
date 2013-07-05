@@ -42,9 +42,8 @@
   <ItemGroup>
     <Compile Include="EventDesign\DataReceivedEventArgs.cs" />
     <Compile Include="EventDesign\DataReceivedEventHandler.cs" />
-    <Compile Include="EventDesign\SessionCreatedEventArgs.cs" />
-    <Compile Include="EventDesign\SessionCreatedEventHandler.cs" />
-    <Compile Include="Generic\GenericSession.cs" />
+    <Compile Include="EventDesign\ClientConnectedEventArgs.cs" />
+    <Compile Include="EventDesign\ClientConnectedEventHandler.cs" />
     <Compile Include="INetworkSession.cs" />
     <Compile Include="IServerApp.cs" />
     <Compile Include="ISession.cs" />
