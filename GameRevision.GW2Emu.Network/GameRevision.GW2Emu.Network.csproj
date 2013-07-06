@@ -46,6 +46,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetworkSessionCreatedEventArgs.cs" />
+    <Compile Include="DataReceivedEventArgs.cs" />
+    <Compile Include="Handshakes\GameHandshake.cs" />
+    <Compile Include="Handshakes\LoginHandshake.cs" />
+    <Compile Include="INetworkSession.cs" />
+    <Compile Include="ISessionListener.cs" />
     <Compile Include="NetworkSession.cs" />
     <Compile Include="SessionListener.cs" />
   </ItemGroup>

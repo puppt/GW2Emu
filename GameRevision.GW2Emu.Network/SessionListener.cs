@@ -3,15 +3,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using GameRevision.GW2Emu.Core;
-using GameRevision.GW2Emu.Core.Generic;
-using GameRevision.GW2Emu.Core.EventDesign;
 
 namespace GameRevision.GW2Emu.Network
 {
     public class SessionListener : ISessionListener
     {
         public const int Backlog = 100;
-        public event SessionCreatedEventHandler SessionCreated;
+        public event System.EventHandler<NetworkSessionCreatedEventArgs> NetworkSessionCreated;
         public IPEndPoint EndPoint { get; private set; }
 
         public bool Listening
@@ -33,21 +31,21 @@ namespace GameRevision.GW2Emu.Network
             this.socket.Bind(this.EndPoint);
         }
 
-        protected bool IsPending()
+        protected virtual bool IsPending()
         {
             return socket.Poll(0, SelectMode.SelectRead);
         }
 
-        protected void FreeWaitingThreads()
+        protected virtual void FreeWaitingThreads()
         {
             Thread.Sleep(0);
         }
 
-        protected void OnSessionCreated(ISession session, DateTime creationTime)
+        protected virtual void OnClientConnected(INetworkSession networkSession, DateTime connectionTime)
         {
-            if (this.SessionCreated != null)
+            if (this.NetworkSessionCreated != null)
             {
-                this.SessionCreated(this, new SessionCreatedEventArgs(session, creationTime));
+                this.NetworkSessionCreated(this, new NetworkSessionCreatedEventArgs(networkSession, connectionTime));
             }
         }
 
@@ -63,9 +61,7 @@ namespace GameRevision.GW2Emu.Network
                     {
                         if (this.IsPending())
                         {
-                            INetworkSession networkSession = new NetworkSession(this.socket.Accept());
-                            ISession session = new GenericSession(networkSession);
-                            this.OnSessionCreated(session, DateTime.Now);
+                            this.OnClientConnected(new NetworkSession(this.socket.Accept()), DateTime.Now);
                         }
 
                         this.FreeWaitingThreads();
@@ -76,7 +72,7 @@ namespace GameRevision.GW2Emu.Network
             thread.Start();
         }
 
-        public void Dispose()
+        public void Stop()
         {
             this.listening = false;
         }

@@ -38,7 +38,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoginMessageFactory.cs" />
     <Compile Include="LoginServerApp.cs" />
+    <Compile Include="LoginSession.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,11 +2,11 @@
 
 namespace GameRevision.GW2Emu.Core
 {
-    /// <summary>
-    /// Represents a Guild Wars 2 client.
-    /// </summary>
     public interface ISession
     {
-        INetworkSession NetworkSession { get; }
+        IServerApp ServerApp { get; }
+        void SendMessage(IMessage message);
+        void Run();
+        void Stop();
     }
 }
