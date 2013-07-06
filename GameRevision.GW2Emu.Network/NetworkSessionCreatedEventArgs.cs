@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Net.Sockets;
 
-namespace GameRevision.GW2Emu.Core.EventDesign
+namespace GameRevision.GW2Emu.Network
 {
-    public class ClientConnectedEventArgs : EventArgs
+    public class NetworkSessionCreatedEventArgs : EventArgs
     {
         public INetworkSession NetworkSession { get; private set; }
         public DateTime ConnectionTime { get; private set; }
 
-        public ClientConnectedEventArgs(INetworkSession networkSession, DateTime connectionTime)
+        public NetworkSessionCreatedEventArgs(INetworkSession networkSession, DateTime connectionTime)
         {
             this.NetworkSession = networkSession;
             this.ConnectionTime = connectionTime;

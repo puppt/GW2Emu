@@ -4,7 +4,11 @@ namespace GameRevision.GW2Emu.Core
 {
     public interface IServerApp
     {
-        ISessionListener SessionListener { get; }
+        IEventAggregator EventAggregator { get; }
+        ConcurrentSessionCollection SessionCollection { get; }
+        string Name { get; }
+        void RegisterHandlers();
         void Run();
+        void Stop();
     }
 }

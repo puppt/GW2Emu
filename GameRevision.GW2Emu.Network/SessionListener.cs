@@ -3,14 +3,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using GameRevision.GW2Emu.Core;
-using GameRevision.GW2Emu.Core.EventDesign;
 
 namespace GameRevision.GW2Emu.Network
 {
     public class SessionListener : ISessionListener
     {
         public const int Backlog = 100;
-        public event ClientConnectedEventHandler ClientConnected;
+        public event System.EventHandler<NetworkSessionCreatedEventArgs> NetworkSessionCreated;
         public IPEndPoint EndPoint { get; private set; }
 
         public bool Listening
@@ -44,9 +43,9 @@ namespace GameRevision.GW2Emu.Network
 
         protected virtual void OnClientConnected(INetworkSession networkSession, DateTime connectionTime)
         {
-            if (this.ClientConnected != null)
+            if (this.NetworkSessionCreated != null)
             {
-                this.ClientConnected(this, new ClientConnectedEventArgs(networkSession, connectionTime));
+                this.NetworkSessionCreated(this, new NetworkSessionCreatedEventArgs(networkSession, connectionTime));
             }
         }
 

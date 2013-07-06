@@ -3,14 +3,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using GameRevision.GW2Emu.Core;
-using GameRevision.GW2Emu.Core.EventDesign;
 
 namespace GameRevision.GW2Emu.Network
 {
     public class NetworkSession : INetworkSession
     {
-        public event DataReceivedEventHandler DataReceived;
-        public ISession Parent { get; private set; }
+        public event System.EventHandler<DataReceivedEventArgs> DataReceived;
         public IPEndPoint RemoteEndPoint { get; private set; }
         public IPEndPoint LocalEndPoint { get; private set; }
 
@@ -81,9 +79,9 @@ namespace GameRevision.GW2Emu.Network
             thread.Start();
         }
 
-        public void BindToSession(ISession parent)
+        public void Send(byte[] data)
         {
-            this.Parent = parent;
+            this.socket.Send(data);
         }
 
         public void Stop()

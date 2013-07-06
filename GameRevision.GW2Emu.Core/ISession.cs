@@ -4,6 +4,9 @@ namespace GameRevision.GW2Emu.Core
 {
     public interface ISession
     {
-        INetworkSession NetworkSession { get; }
+        IServerApp ServerApp { get; }
+        void SendMessage(IMessage message);
+        void Run();
+        void Stop();
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Net;
-using GameRevision.GW2Emu.Core.EventDesign;
 
-namespace GameRevision.GW2Emu.Core
+namespace GameRevision.GW2Emu.Network
 {
     public interface ISessionListener
     {
-        event ClientConnectedEventHandler ClientConnected;
+        event EventHandler<NetworkSessionCreatedEventArgs> NetworkSessionCreated;
         IPEndPoint EndPoint { get; }
         bool Listening { get; }
         void Listen();

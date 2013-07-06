@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameRevision.GW2Emu.Core.EventDesign
+namespace GameRevision.GW2Emu.Network
 {
     public class DataReceivedEventArgs : EventArgs
     {

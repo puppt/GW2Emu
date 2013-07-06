@@ -37,21 +37,45 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LZ4Sharp">
+      <HintPath>Compression\LZ4Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>Cryptography\Mono.Security.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventDesign\DataReceivedEventArgs.cs" />
-    <Compile Include="EventDesign\DataReceivedEventHandler.cs" />
-    <Compile Include="EventDesign\ClientConnectedEventArgs.cs" />
-    <Compile Include="EventDesign\ClientConnectedEventHandler.cs" />
-    <Compile Include="INetworkSession.cs" />
+    <Compile Include="Compression\LZ4Compressor.cs" />
+    <Compile Include="ConcurrentEventAggregator.cs" />
+    <Compile Include="Cryptography\DiffieHellman.cs" />
+    <Compile Include="Cryptography\Keys.cs" />
+    <Compile Include="Cryptography\RC4.cs" />
+    <Compile Include="Cryptography\RC4Encryptor.cs" />
+    <Compile Include="Cryptography\Utilities.cs" />
+    <Compile Include="EventHandler.cs" />
+    <Compile Include="GenericMessage.cs" />
+    <Compile Include="GenericTriggerableMessage.cs" />
+    <Compile Include="IEventAggregator.cs" />
+    <Compile Include="IMessageFactory.cs" />
+    <Compile Include="IRegisterable.cs" />
+    <Compile Include="ServerAppExecutor.cs" />
+    <Compile Include="EventAggregator.cs" />
+    <Compile Include="IEvent.cs" />
+    <Compile Include="IMessage.cs" />
     <Compile Include="IServerApp.cs" />
     <Compile Include="ISession.cs" />
-    <Compile Include="ISessionListener.cs" />
+    <Compile Include="ITriggerableMessage.cs" />
+    <Compile Include="Serializers\Deserializer.cs" />
+    <Compile Include="Serializers\Serializer.cs" />
+    <Compile Include="ConcurrentSessionCollection.cs" />
+    <Compile Include="Types\UID.cs" />
+    <Compile Include="Types\Vector2.cs" />
+    <Compile Include="Types\Vector3.cs" />
+    <Compile Include="Types\Vector4.cs" />
+    <Compile Include="Types\WorldPosition.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Storage\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
