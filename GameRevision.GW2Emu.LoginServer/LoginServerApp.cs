@@ -30,6 +30,7 @@ namespace GameRevision.GW2Emu.LoginServer
 
         public void RegisterHandlers()
         {
+            this.EventAggregator.Register(Assembly.GetExecutingAssembly().GetTypes());
         }
 
         public void Run()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
@@ -25,6 +26,50 @@ namespace GameRevision.GW2Emu.Core
         public void Register(IRegisterable registerable)
         {
             registerable.Register(this);
+        }
+
+        public void Register(Type[] types)
+        {
+            foreach (Type type in types)
+            {
+                if (type.GetConstructor(Type.EmptyTypes) != null)
+                {
+                    object target = null;
+                    foreach (MethodInfo method in type.GetMethods())
+                    {
+                        ParameterInfo[] parameters = method.GetParameters();
+                        if (parameters.Length == 1 && method.Attributes > 0)
+                        {
+                            Type parameterType = parameters[0].ParameterType;
+                            object[] attributes = method.GetCustomAttributes(typeof(EventHandlerAttribute), false);
+                            if (attributes.Length == 1)
+                            {
+                                if (target == null)
+                                {
+                                    target = Activator.CreateInstance(type);
+                                }
+
+                                if (!handlers.ContainsKey(parameterType))
+                                {
+                                    handlers[parameterType] = new List<EventHandler<IEvent>>();
+                                }
+
+                                var handlerList = handlers[parameterType];
+
+                                // HACK: Find a fix for this problem.
+                                MethodInfo methodInfo = method;
+
+                                handlerList.Add(delegate(IEvent evt)
+                                {
+                                    // Not possible to just call method.Invoke for some strange reason.
+                                    // The local variable 'method' turns into an instance of 'System.Type.GetType()'
+                                    methodInfo.Invoke(target, new object[] { evt });
+                                });
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public void Register<T>(EventHandler<T> handler) where T : IEvent

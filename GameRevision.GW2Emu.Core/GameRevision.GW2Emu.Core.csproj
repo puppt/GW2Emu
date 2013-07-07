@@ -54,6 +54,7 @@
     <Compile Include="Cryptography\RC4Encryptor.cs" />
     <Compile Include="Cryptography\Utilities.cs" />
     <Compile Include="EventHandler.cs" />
+    <Compile Include="EventHandlerAttribute.cs" />
     <Compile Include="GenericMessage.cs" />
     <Compile Include="GenericTriggerableMessage.cs" />
     <Compile Include="IEventAggregator.cs" />

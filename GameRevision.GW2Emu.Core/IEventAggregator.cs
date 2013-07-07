@@ -18,6 +18,14 @@ namespace GameRevision.GW2Emu.Core
         void Register(IRegisterable registerable);
 
         /// <summary>
+        /// This method registers all event handlers in the specified types.
+        /// </summary>
+        /// <param name="types">
+        /// The types that contains event handlers to register.
+        /// </param>
+        void Register(Type[] types);
+
+        /// <summary>
         /// This method registers the specified handler, and associates
         /// it with the specified event type T.
         /// </summary>
