@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+
+  <!--RootNode: Packets-->
+  <xsd:element name="Templates">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Protocol" type="CommunicationDirection" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!--Type defs-->
+  <!--CommunicationDirection-->
+  <xsd:complexType name="CommunicationDirection">
+    <xsd:sequence>
+      <xsd:element name="Packet" type="PacketType" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="type" type="ProtocolSimpleTypes" use="required" />
+    <!--Ex: "GStoC"-->
+  </xsd:complexType>
+
+
+  <!--PacketType-->
+  <xsd:complexType name="PacketType">
+    <xsd:complexContent>
+      <xsd:extension base="UserNamedType">
+        <xsd:sequence>
+          <xsd:element name="Field" type="BasicFieldType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="header" type="xsd:integer" use="required" />
+        <xsd:attribute name="typeSize" type="xsd:integer" use="required" />
+        <xsd:attribute name="staticSize" type="xsd:integer" use="required" />
+      </xsd:extension>
+    </xsd:complexContent>
+    <!--Ex: "123"-->
+  </xsd:complexType>
+
+
+  <!--MetaInfo-->
+  <!--Hint: This type is an optional note, that can be attached to a packet template or field-->
+  <xsd:complexType name="MetaInfo">
+    <xsd:sequence>
+      <!--Used whenever a packet or type has a special name or description-->
+      <xsd:element name="Name" type="xsd:string" minOccurs="0" maxOccurs="1" />
+      <xsd:element name="Description" type="xsd:string" minOccurs="0" maxOccurs="1" />
+      <!--Can be used to sign packets (optional ofc)-->
+      <xsd:element name="Author" type="xsd:string" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="UserNamedType">
+    <xsd:sequence>
+      <xsd:element name="Info" type="MetaInfo" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!--PacketFieldType-->
+  <xsd:complexType name="BasicFieldType">
+    <xsd:complexContent>
+      <xsd:extension base="UserNamedType">
+        
+        <!--attribute "type" should be "nested" when we've got one or more of fields within this field-->
+        <!--(in that case, the type of this field is a struct and it is directly defined within the template)-->
+        <!--note that (by this definition) it is allowed to have nested structs in a nested struct-->
+        <xsd:attribute name="type" type="PacketSimpleTypes" use="required" />
+
+        <xsd:attribute name="static" type="xsd:boolean" use="optional" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+  <xsd:complexType name="StructFieldType">
+    <xsd:complexContent>
+      <xsd:extension base="BasicFieldType">
+        <xsd:sequence>
+          <xsd:element name="Field" type="BasicFieldType" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="typeSize" type="xsd:integer" use="required" />
+        <xsd:attribute name="staticSize" type="xsd:integer" use="required" />
+      </xsd:extension>
+
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StaticArrayFieldType">
+    <xsd:complexContent>
+      <xsd:extension base="StructFieldType">
+        <xsd:attribute name="elements" type="xsd:unsignedInt" use="required" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="VarByteType">
+    <xsd:complexContent>
+      <xsd:extension base="BasicFieldType">
+        <xsd:attribute name="srcBytes" type="xsd:integer" use="required" />
+        <xsd:attribute name="destBytes" type="xsd:integer" use="required" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!--PacketSimpleTypes-->
+  <xsd:simpleType name="PacketSimpleTypes">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="byte" />
+      <!--8 Bit-->
+      <xsd:enumeration value="short" />
+      <!--16 Bit-->
+      <xsd:enumeration value="long" />
+      <!--64 Bit-->
+      <xsd:enumeration value="varint" />
+      <!--variable length (packed) number-->
+      <xsd:enumeration value="float" />
+      <!--32 Bit-->
+      <xsd:enumeration value="vec2" />
+      <!--64 Bit-->
+      <xsd:enumeration value="vec3" />
+      <!--96 Bit-->
+      <xsd:enumeration value="vec4" />
+      <!--128 Bit-->
+      <xsd:enumeration value="dw3" />
+      <!--96 Bit-->
+      <xsd:enumeration value="uid16" />
+      <!--16 Byte-->
+      <xsd:enumeration value="guid18" />
+      <!--18 Byte-->
+      <xsd:enumeration value="ascii" />
+      <!--8 Bit-->
+      <xsd:enumeration value="utf16" />
+      <!--16 Bit-->
+      <xsd:enumeration value="optional" />
+      <!--1 Byte + nested-->
+      <xsd:enumeration value="array_static" />
+      <!--Nested fixed sized array-->
+      <xsd:enumeration value="array_var_small" />
+      <!--1 Byte (lenght) + array-->
+      <xsd:enumeration value="array_var_big" />
+      <!--2 Byte (lenght) + array-->
+      <xsd:enumeration value="buffer_static" />
+      <!--Nested fixed sized buffer-->
+      <xsd:enumeration value="buffer_var_small" />
+      <!--1 Byte (lenght) + array-->
+      <xsd:enumeration value="buffer_var_big" />
+      <!--2 Byte (lenght) + array-->
+      <xsd:enumeration value="varbyte" />
+      <!--1 to 8 Bytes-->
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="ProtocolSimpleTypes">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="CtoLS" />
+      <xsd:enumeration value="CtoGS" />
+      <xsd:enumeration value="LStoC" />
+      <xsd:enumeration value="GStoC" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+</xsd:schema>

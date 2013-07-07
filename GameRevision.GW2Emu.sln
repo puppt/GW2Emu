@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.Network
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.LoginServer", "GameRevision.GW2Emu.LoginServer\GameRevision.GW2Emu.LoginServer.csproj", "{925E3982-B8B0-4EF9-9842-722FD0B2940F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.CodeWriter", "GameRevision.GW2Emu.PacketGenerator\GameRevision.GW2Emu.CodeWriter.csproj", "{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.Messages", "GameRevision.GW2Emu.Messages\GameRevision.GW2Emu.Messages.csproj", "{0EA2286E-A798-4727-A4AA-D46CF2DE5DD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -25,6 +29,14 @@ Global
 		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Debug|x86.Build.0 = Debug|x86
 		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|x86.ActiveCfg = Release|x86
 		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|x86.Build.0 = Release|x86
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|x86.ActiveCfg = Debug|x86
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|x86.Build.0 = Debug|x86
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|x86.ActiveCfg = Release|x86
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|x86.Build.0 = Release|x86
+		{0EA2286E-A798-4727-A4AA-D46CF2DE5DD0}.Debug|x86.ActiveCfg = Debug|x86
+		{0EA2286E-A798-4727-A4AA-D46CF2DE5DD0}.Debug|x86.Build.0 = Debug|x86
+		{0EA2286E-A798-4727-A4AA-D46CF2DE5DD0}.Release|x86.ActiveCfg = Release|x86
+		{0EA2286E-A798-4727-A4AA-D46CF2DE5DD0}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
