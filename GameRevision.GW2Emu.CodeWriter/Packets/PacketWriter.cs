@@ -180,13 +180,21 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             }
             else
             {
-                WriteDeserializer(fields);
+                WriteDeserializer(fields, isPacket);
             }
         }
 
-        private void WriteDeserializer(IEnumerable<Field> fields)
+        private void WriteDeserializer(IEnumerable<Field> fields, bool isPacket)
         {
-            this.writer.WriteOverridingMethod(Deserializer.PacketMethod, Deserializer.Type + " " + Deserializer.Name);
+            if (isPacket)
+            {
+                this.writer.WriteOverridingMethod(Deserializer.PacketMethod, Deserializer.Type + " " + Deserializer.Name);
+            }
+            else
+            {
+                this.writer.WriteMethod(Deserializer.PacketMethod, Deserializer.Type + " " + Deserializer.Name);
+            }
+
             this.writer.WriteInBlock(delegate
             {
                 foreach (Field field in fields)
@@ -198,7 +206,15 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
         private void WriteSerializer(IEnumerable<Field> fields, bool isPacket)
         {
-            this.writer.WriteOverridingMethod(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
+            if (isPacket)
+            {
+                this.writer.WriteOverridingMethod(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
+            }
+            else
+            {
+                this.writer.WriteMethod(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
+            }
+
             this.writer.WriteInBlock(delegate
             {
                 if (isPacket)
