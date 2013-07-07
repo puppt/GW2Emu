@@ -9,7 +9,7 @@ namespace GameRevision.GW2Emu.LoginServer
     public class LoginServerApp : IServerApp
     {
         public IEventAggregator EventAggregator { get; private set; }
-        public ISessionListener SessionListener { get; private set; }
+        public INetworkSessionListener SessionListener { get; private set; }
         public ConcurrentSessionCollection SessionCollection { get; private set; }
 
         public string Name
@@ -24,7 +24,7 @@ namespace GameRevision.GW2Emu.LoginServer
         {
             this.EventAggregator = new EventAggregator();
             this.SessionCollection = new ConcurrentSessionCollection();
-            this.SessionListener = new SessionListener(IPAddress.Any, 6112);
+            this.SessionListener = new NetworkSessionListener(IPAddress.Any, 6112);
             this.SessionListener.NetworkSessionCreated += OnNetworkSessionCreated;
         }
 

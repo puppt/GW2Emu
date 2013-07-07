@@ -51,9 +51,9 @@
     <Compile Include="Handshakes\GameHandshake.cs" />
     <Compile Include="Handshakes\LoginHandshake.cs" />
     <Compile Include="INetworkSession.cs" />
-    <Compile Include="ISessionListener.cs" />
+    <Compile Include="INetworkSessionListener.cs" />
     <Compile Include="NetworkSession.cs" />
-    <Compile Include="SessionListener.cs" />
+    <Compile Include="NetworkSessionListener.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

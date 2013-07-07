@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Collections.Generic;
 using GameRevision.GW2Emu.Core.Types;
 
 namespace GameRevision.GW2Emu.Core.Serializers
@@ -28,6 +29,14 @@ namespace GameRevision.GW2Emu.Core.Serializers
             }
 
             return value;
+        }
+
+        public long ReadVarbyte(int count)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.AddRange(this.ReadBytes(count));
+            buffer.AddRange(new byte[8 - buffer.Count]);
+            return BitConverter.ToInt64(buffer.ToArray(), 0);
         }
 
         public char ReadEncodedChar(Encoding encoding)

@@ -6,7 +6,7 @@ using GameRevision.GW2Emu.Core;
 
 namespace GameRevision.GW2Emu.Network
 {
-    public class SessionListener : ISessionListener
+    public class NetworkSessionListener : INetworkSessionListener
     {
         public const int Backlog = 100;
         public event System.EventHandler<NetworkSessionCreatedEventArgs> NetworkSessionCreated;
@@ -23,7 +23,7 @@ namespace GameRevision.GW2Emu.Network
         private Socket socket;
         private volatile bool listening;
 
-        public SessionListener(IPAddress address, int port)
+        public NetworkSessionListener(IPAddress address, int port)
         {
             this.EndPoint = new IPEndPoint(address, port);
 

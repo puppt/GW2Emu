@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Collections.Generic;
 using GameRevision.GW2Emu.Core.Types;
 
 namespace GameRevision.GW2Emu.Core.Serializers
@@ -34,6 +35,13 @@ namespace GameRevision.GW2Emu.Core.Serializers
 
                 this.Write(lower7bits);
             }
+        }
+
+        public void WriteVarbyte(long value, int count)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.AddRange(BitConverter.GetBytes(value));
+            this.Write(buffer.GetRange(0, count).ToArray());
         }
 
         public void WriteEncodedChar(char value, Encoding encoding)
