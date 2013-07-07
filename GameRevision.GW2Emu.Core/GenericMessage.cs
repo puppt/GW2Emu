@@ -7,7 +7,7 @@ namespace GameRevision.GW2Emu.Core
     {
         public ISession Session { get; set; }
 
-        public virtual short Header
+        public virtual ushort Header
         {
             get
             {
@@ -21,7 +21,7 @@ namespace GameRevision.GW2Emu.Core
 
         public virtual void Serialize(Serializer serializer)
         {
-            serializer.Write((ushort)this.Header);
+            serializer.Write(this.Header);
         }
     }
 }
