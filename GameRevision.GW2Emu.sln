@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.Network
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.LoginServer", "GameRevision.GW2Emu.LoginServer\GameRevision.GW2Emu.LoginServer.csproj", "{925E3982-B8B0-4EF9-9842-722FD0B2940F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.CodeWriter", "GameRevision.GW2Emu.PacketGenerator\GameRevision.GW2Emu.CodeWriter.csproj", "{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.CodeWriter", "GameRevision.GW2Emu.CodeWriter\GameRevision.GW2Emu.CodeWriter.csproj", "{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
