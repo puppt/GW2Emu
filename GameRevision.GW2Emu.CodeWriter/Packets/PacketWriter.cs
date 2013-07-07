@@ -101,7 +101,6 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
                 this.writer.WriteLine();
             }
 
-            this.WriteHeaderProperty();
             this.WriteMethod(fields, isPacket);
         }
 
@@ -170,6 +169,11 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
         private void WriteMethod(IEnumerable<Field> fields, bool isPacket)
         {
+            if (isPacket)
+            {
+                this.WriteHeaderProperty();
+            }
+
             if (protocol.type.GetPacketDirection() == PacketDirection.Out)
             {
                 WriteSerializer(fields, isPacket);
