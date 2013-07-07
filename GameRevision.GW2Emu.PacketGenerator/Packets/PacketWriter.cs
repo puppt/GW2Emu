@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using GameRevision.GW2Emu.CodeWriter.CSharp;
 using GameRevision.GW2Emu.CodeWriter.Headers;
 using GameRevision.GW2Emu.CodeWriter.Xml;
-using GameRevision.GW2Emu.CodeWriter.Messages.Fields;
+using GameRevision.GW2Emu.CodeWriter.Packets.Fields;
 
-namespace GameRevision.GW2Emu.CodeWriter.Messages
+namespace GameRevision.GW2Emu.CodeWriter.Packets
 {
     public class MessageWriter
     {
@@ -133,6 +133,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Messages
                 FieldType fieldType = FieldTypeFactory.Create(basicField, this.writer);
 
                 InnerStructFieldType innerStructFieldType = GetInnerStruct(fieldType);
+
                 if (innerStructFieldType != null)
                 {
                     innerStructFieldType.Name = "Struct" + fieldNumber++;
@@ -145,7 +146,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Messages
                                        ? basicField.GetName()
                                        : "Unknown" + fieldNumber++;
 
-                var field = new Field(fieldName, fieldType);
+                Field field = new Field(fieldName, fieldType);
 
                 field.Write();
 
@@ -181,7 +182,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Messages
 
         private void WriteDeserializer(IEnumerable<Field> fields)
         {
-            this.writer.WriteOverridingMethod(Deserializer.MessageMethod, Deserializer.Type + " " + Deserializer.Name);
+            this.writer.WriteOverridingMethod(Deserializer.PacketMethod, Deserializer.Type + " " + Deserializer.Name);
             this.writer.WriteInBlock(delegate
             {
                 foreach (Field field in fields)
@@ -193,7 +194,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Messages
 
         private void WriteSerializer(IEnumerable<Field> fields, bool isMessage)
         {
-            this.writer.WriteOverridingMethod(Serializer.MessageMethod, Serializer.Type + " " + Serializer.Name);
+            this.writer.WriteOverridingMethod(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
             this.writer.WriteInBlock(delegate
             {
                 if (isMessage)

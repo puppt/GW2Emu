@@ -1,7 +1,7 @@
 ﻿using System;
 using GameRevision.GW2Emu.CodeWriter.CSharp;
 
-namespace GameRevision.GW2Emu.CodeWriter.Messages.Fields
+namespace GameRevision.GW2Emu.CodeWriter.Packets.Fields
 {
     internal static class FieldTypeFactory
     {

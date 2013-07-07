@@ -44,11 +44,11 @@
     <Compile Include="Factory\FactoryWriter.cs" />
     <Compile Include="Headers\HeaderEnum.cs" />
     <Compile Include="Headers\HeaderGenerator.cs" />
-    <Compile Include="Messages\Fields\Field.cs" />
-    <Compile Include="Messages\Fields\FieldTypeFactory.cs" />
-    <Compile Include="Messages\Fields\FieldTypes.cs" />
-    <Compile Include="Messages\IOConstants.cs" />
-    <Compile Include="Messages\MessageWriter.cs" />
+    <Compile Include="Packets\Fields\Field.cs" />
+    <Compile Include="Packets\Fields\FieldTypeFactory.cs" />
+    <Compile Include="Packets\Fields\FieldTypes.cs" />
+    <Compile Include="Packets\IOConstants.cs" />
+    <Compile Include="Packets\PacketWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml\Templates.cs">

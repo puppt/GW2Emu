@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using GameRevision.GW2Emu.CodeWriter.CSharp;
 using GameRevision.GW2Emu.CodeWriter.Headers;
-using GameRevision.GW2Emu.CodeWriter.Messages;
+using GameRevision.GW2Emu.CodeWriter.Packets;
 using GameRevision.GW2Emu.CodeWriter.Factory;
 using GameRevision.GW2Emu.CodeWriter.Xml;
 

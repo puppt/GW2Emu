@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameRevision.GW2Emu.CodeWriter.Messages.Fields
+namespace GameRevision.GW2Emu.CodeWriter.Packets.Fields
 {
     internal class Field
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using GameRevision.GW2Emu.CodeWriter.CSharp;
 
-namespace GameRevision.GW2Emu.CodeWriter.Messages.Fields
+namespace GameRevision.GW2Emu.CodeWriter.Packets.Fields
 {
     internal abstract class FieldType
     {
@@ -538,7 +538,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Messages.Fields
 
         public override void WriteSerializer(string fieldName)
         {
-            this.Writer.WriteMethodCall(fieldName, Serializer.MessageMethod, Serializer.Name);
+            this.Writer.WriteMethodCall(fieldName, Serializer.PacketMethod, Serializer.Name);
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using GameRevision.GW2Emu.CodeWriter.CSharp;
 
-namespace GameRevision.GW2Emu.CodeWriter.Messages
+namespace GameRevision.GW2Emu.CodeWriter.Packets
 {
     static class Serializer
     {
-        public const string MessageMethod = "Serialize";
+        public const string PacketMethod = "Serialize";
 
         public const string Type = "Serializer";
         public const string Name = "serializer";
@@ -39,7 +39,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Messages
 
     static class Deserializer
     {
-        public const string MessageMethod = "Deserialize";
+        public const string PacketMethod = "Deserialize";
 
         public const string Type = "Deserializer";
         public const string Name = "deserializer";
