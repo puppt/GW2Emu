@@ -42,23 +42,23 @@ namespace GameRevision.GW2Emu.CodeWriter
         {
             HeaderGenerator headers = new HeaderGenerator();
             HeaderEnum headerEnum = headers.GenerateMessageHeader(protocol);
-            this.WriteMessageFiles(headerEnum, protocol);
+            this.WritePacketFiles(headerEnum, protocol);
             this.WriteFactoryFile(headerEnum, protocol);
         }
 
-        private void WriteMessageFiles(HeaderEnum headerEnum, CommunicationDirection protocol)
+        private void WritePacketFiles(HeaderEnum headerEnum, CommunicationDirection protocol)
         {
             DateTime date = DateTime.Now;
 
-            Parallel.ForEach(protocol.Packet, delegate(PacketType message)
+            Parallel.ForEach(protocol.Packet, delegate(PacketType packet)
             {
-                string messageName = headerEnum.NamesByHeader[message.header];
-                string fileName = this.GetMessageFilePath(protocol.type, messageName);
+                string packetName = headerEnum.NamesByHeader[packet.header];
+                string fileName = this.GetMessageFilePath(protocol.type, packetName);
 
                 this.WriteFile(fileName, delegate(CSharpWriter writer)
                 {
-                    MessageWriter messageWriter = new MessageWriter(writer, protocol, message, headerEnum, date);
-                    messageWriter.WriteMessage();
+                    PacketWriter packetWriter = new PacketWriter(writer, protocol, packet, headerEnum, date);
+                    packetWriter.WriteMessage();
                 });
             });
         }

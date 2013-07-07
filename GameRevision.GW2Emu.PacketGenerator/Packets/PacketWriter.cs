@@ -7,7 +7,7 @@ using GameRevision.GW2Emu.CodeWriter.Packets.Fields;
 
 namespace GameRevision.GW2Emu.CodeWriter.Packets
 {
-    public class MessageWriter
+    public class PacketWriter
     {
         private CSharpWriter writer;
         private CommunicationDirection protocol;
@@ -16,7 +16,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
         private DateTime date;
         private int fieldNumber;
 
-        public MessageWriter(CSharpWriter writer, CommunicationDirection protocol, PacketType message, HeaderEnum headerEnum, DateTime date)
+        public PacketWriter(CSharpWriter writer, CommunicationDirection protocol, PacketType message, HeaderEnum headerEnum, DateTime date)
         {
             this.writer = writer;
             this.protocol = protocol;
@@ -91,18 +91,18 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             });
         }
 
-        private void WriteTypeMembers(string typeName, IEnumerable<BasicFieldType> basicFields, bool isMessage)
+        private void WriteTypeMembers(string typeName, IEnumerable<BasicFieldType> basicFields, bool isPacket)
         {
             var fields = new List<Field>();
 
             if (basicFields != null)
             {
-                WriteFields(fields, basicFields);
+                this.WriteFields(fields, basicFields);
                 this.writer.WriteLine();
             }
 
             this.WriteHeaderProperty();
-            this.WriteMethod(fields, isMessage);
+            this.WriteMethod(fields, isPacket);
         }
 
         private void WriteStruct(InnerStructFieldType structure)
@@ -168,11 +168,11 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             this.writer.WriteLine();
         }
 
-        private void WriteMethod(IEnumerable<Field> fields, bool isMessage)
+        private void WriteMethod(IEnumerable<Field> fields, bool isPacket)
         {
             if (protocol.type.GetPacketDirection() == PacketDirection.Out)
             {
-                WriteSerializer(fields, isMessage);
+                WriteSerializer(fields, isPacket);
             }
             else
             {
@@ -192,12 +192,12 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             });
         }
 
-        private void WriteSerializer(IEnumerable<Field> fields, bool isMessage)
+        private void WriteSerializer(IEnumerable<Field> fields, bool isPacket)
         {
             this.writer.WriteOverridingMethod(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
             this.writer.WriteInBlock(delegate
             {
-                if (isMessage)
+                if (isPacket)
                 {
                     this.writer.WriteMethodCall("base", "Serialize", "serializer");
                 }
