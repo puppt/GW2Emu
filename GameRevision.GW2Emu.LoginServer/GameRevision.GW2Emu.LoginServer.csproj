@@ -46,7 +46,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoginMessageFactory.cs" />
     <Compile Include="LoginServerApp.cs" />
     <Compile Include="LoginSession.cs" />
     <Compile Include="Program.cs" />
@@ -58,6 +57,10 @@
     <ProjectReference Include="..\GameRevision.GW2Emu.Core\GameRevision.GW2Emu.Core.csproj">
       <Project>{572FD524-0DEA-4FDA-A539-6703E301F7A7}</Project>
       <Name>GameRevision.GW2Emu.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameRevision.GW2Emu.Messages\GameRevision.GW2Emu.Messages.csproj">
+      <Project>{32BCE439-182E-42C3-BC78-C0994CF5FD84}</Project>
+      <Name>GameRevision.GW2Emu.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameRevision.GW2Emu.Network\GameRevision.GW2Emu.Network.csproj">
       <Project>{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}</Project>

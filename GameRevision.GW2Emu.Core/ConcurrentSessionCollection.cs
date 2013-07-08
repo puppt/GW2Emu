@@ -53,7 +53,6 @@ namespace GameRevision.GW2Emu.Core
             lock (this.listLock)
             {
                 session.Stop();
-                this.list.Remove(session);
             }
         }
 
@@ -64,7 +63,6 @@ namespace GameRevision.GW2Emu.Core
                 foreach (ISession session in this.list)
                 {
                     session.Stop();
-                    this.list.Remove(session);
                 }
             }
         }

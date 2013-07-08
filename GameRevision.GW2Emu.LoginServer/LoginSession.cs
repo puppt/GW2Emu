@@ -5,6 +5,7 @@ using GameRevision.GW2Emu.Core.Compression;
 using GameRevision.GW2Emu.Core.Cryptography;
 using GameRevision.GW2Emu.Network;
 using GameRevision.GW2Emu.Network.Handshakes;
+using GameRevision.GW2Emu.Messages.LoginServer;
 
 namespace GameRevision.GW2Emu.LoginServer
 {
