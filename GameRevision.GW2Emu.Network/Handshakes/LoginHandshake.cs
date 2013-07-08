@@ -4,20 +4,13 @@ using GameRevision.GW2Emu.Core.Cryptography;
 
 namespace GameRevision.GW2Emu.Network.Handshakes
 {
-    public class LoginHandshake
+    public class LoginHandshake : Handshake
     {
-        public event Action HandshakeDone;
-        public INetworkSession NetworkSession { get; private set; }
-        public uint Version { get; private set; }
-        public byte[] RC4Key { get; private set; }
-
-        public LoginHandshake(INetworkSession networkSession)
+        public LoginHandshake(INetworkSession networkSession) : base(networkSession)
         {
-            this.NetworkSession = networkSession;
-            this.NetworkSession.DataReceived += OnDataReceived;
         }
 
-        public void OnDataReceived(object sender, DataReceivedEventArgs e)
+        public override void OnDataReceived(object sender, DataReceivedEventArgs e)
         {
             Deserializer deserializer = new Deserializer(e.Buffer);
 
@@ -48,23 +41,6 @@ namespace GameRevision.GW2Emu.Network.Handshakes
                         Console.WriteLine("Unhandled packet, header: {0}, length: {1}", header, length);
                         break;
                 }
-            }
-        }
-
-        private void SendKey(byte[] key)
-        {
-            Serializer serializer = new Serializer();
-            serializer.Write((byte)0x01); // RC4Seed Header
-            serializer.Write((byte)0x16); // RC4Seed Length
-            serializer.Write(key); // RC4Key
-            this.NetworkSession.Send(serializer.GetBytes());
-        }
-
-        private void OnHandshakeDone()
-        {
-            if (this.HandshakeDone != null)
-            {
-                this.HandshakeDone();
             }
         }
     }

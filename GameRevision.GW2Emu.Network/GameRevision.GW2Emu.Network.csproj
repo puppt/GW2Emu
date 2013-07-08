@@ -54,6 +54,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handshakes\Handshake.cs" />
     <Compile Include="NetworkSessionCreatedEventArgs.cs" />
     <Compile Include="DataReceivedEventArgs.cs" />
     <Compile Include="Handshakes\GameHandshake.cs" />

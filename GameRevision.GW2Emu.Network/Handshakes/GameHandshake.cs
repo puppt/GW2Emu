@@ -4,20 +4,13 @@ using GameRevision.GW2Emu.Core.Cryptography;
 
 namespace GameRevision.GW2Emu.Network.Handshakes
 {
-    public class GameHandshake
+    public class GameHandshake : Handshake
     {
-        public event Action HandshakeDone;
-        public INetworkSession NetworkSession { get; private set; }
-        public uint Version { get; private set; }
-        public byte[] RC4Key { get; private set; }
-
-        public GameHandshake(INetworkSession networkSession)
+        public GameHandshake(INetworkSession networkSession) : base(networkSession)
         {
-            this.NetworkSession = networkSession;
-            this.NetworkSession.DataReceived += OnDataReceived;
         }
 
-        public void OnDataReceived(object sender, DataReceivedEventArgs e)
+        public override void OnDataReceived(object sender, DataReceivedEventArgs e)
         {
             Deserializer deserializer = new Deserializer(e.Buffer);
 
@@ -31,7 +24,7 @@ namespace GameRevision.GW2Emu.Network.Handshakes
                     case 0x05: // Verify
                         deserializer.BaseStream.Position += 2;
                         this.Version = deserializer.ReadUInt32();
-                        deserializer.BaseStream.Position += 56;
+                        deserializer.BaseStream.Position += 56; // Probably wrong offset
                         break;
                     case 0x42: // PublicKey
                         byte[] publicKey = deserializer.ReadBytes(64);
@@ -45,23 +38,6 @@ namespace GameRevision.GW2Emu.Network.Handshakes
                         this.OnHandshakeDone();
                         break;
                 }
-            }
-        }
-
-        private void SendKey(byte[] key)
-        {
-            Serializer serializer = new Serializer();
-            serializer.Write((byte)0x01); // RC4Seed Header
-            serializer.Write((byte)0x16); // RC4Seed Length
-            serializer.Write(key); // RC4Key
-            this.NetworkSession.Send(serializer.GetBytes());
-        }
-
-        private void OnHandshakeDone()
-        {
-            if (this.HandshakeDone != null)
-            {
-                this.HandshakeDone();
             }
         }
     }
