@@ -13,27 +13,23 @@ using GameRevision.GW2Emu.Core.Serializers;
 
 namespace GameRevision.GW2Emu.Messages.LoginServer.CtoS
 {
-    public class P10_UnknownMessage : GenericTriggerableMessage
+    public class P20_CharacterDeleteMessage : GenericTriggerableMessage
     {
         public int Unknown0;
-        public UID Unknown1;
-        public UID Unknown2;
-        public string Unknown3;
+        public string CharacterName;
         
         public override ushort Header
         {
             get
             {
-                return 10;
+                return 20;
             }
         }
         
         public override void Deserialize(Deserializer deserializer)
         {
             this.Unknown0 = deserializer.ReadVarint();
-            this.Unknown1 = deserializer.ReadUID();
-            this.Unknown2 = deserializer.ReadUID();
-            this.Unknown3 = deserializer.ReadUtf16String();
+            this.CharacterName = deserializer.ReadUtf16String();
         }
     }
 }

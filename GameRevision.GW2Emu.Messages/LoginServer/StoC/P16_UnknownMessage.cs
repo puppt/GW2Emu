@@ -15,7 +15,7 @@ namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
 {
     public class P16_UnknownMessage : GenericMessage
     {
-        public int Unknown0;
+        public int SyncCount;
         public UID Unknown1;
         public int Unknown2;
         public int Unknown3;
@@ -34,7 +34,7 @@ namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
         public override void Serialize(Serializer serializer)
         {
             base.Serialize(serializer);
-            serializer.WriteVarint(this.Unknown0);
+            serializer.WriteVarint(this.SyncCount);
             serializer.WriteUID(this.Unknown1);
             serializer.WriteVarint(this.Unknown2);
             serializer.WriteVarint(this.Unknown3);

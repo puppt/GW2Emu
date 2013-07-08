@@ -17,7 +17,7 @@ namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
     {
         public int Unknown0;
         public int Unknown1;
-        public IPEndPoint Unknown2;
+        public IPEndPoint ConnectionInfo;
         public int Unknown3;
         public int Unknown4;
         public int Unknown5;
@@ -36,7 +36,7 @@ namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
             base.Serialize(serializer);
             serializer.WriteVarint(this.Unknown0);
             serializer.WriteVarint(this.Unknown1);
-            serializer.WriteIPEndPoint(this.Unknown2);
+            serializer.WriteIPEndPoint(this.ConnectionInfo);
             serializer.WriteVarint(this.Unknown3);
             serializer.WriteVarint(this.Unknown4);
             serializer.WriteVarint(this.Unknown5);

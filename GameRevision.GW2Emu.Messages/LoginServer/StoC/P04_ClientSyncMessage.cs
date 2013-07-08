@@ -13,15 +13,19 @@ using GameRevision.GW2Emu.Core.Serializers;
 
 namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
 {
-    public class P02_UnknownMessage : GenericMessage
+    public class P04_ClientSyncMessage : GenericMessage
     {
         public int Unknown0;
+        public int Unknown1;
+        public int Unknown2;
+        public int Unknown3;
+        public int Unknown4;
         
         public override ushort Header
         {
             get
             {
-                return 2;
+                return 4;
             }
         }
         
@@ -29,6 +33,10 @@ namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
         {
             base.Serialize(serializer);
             serializer.WriteVarint(this.Unknown0);
+            serializer.WriteVarint(this.Unknown1);
+            serializer.WriteVarint(this.Unknown2);
+            serializer.WriteVarint(this.Unknown3);
+            serializer.WriteVarint(this.Unknown4);
         }
     }
 }

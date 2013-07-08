@@ -13,13 +13,13 @@ using GameRevision.GW2Emu.Core.Serializers;
 
 namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
 {
-    public class P20_UnknownMessage : GenericMessage
+    public class P20_ReferToGameServerMessage : GenericMessage
     {
         public int Unknown0;
         public int Unknown1;
         public int Unknown2;
         public int Unknown3;
-        public IPEndPoint Unknown4;
+        public IPEndPoint ConnectionInfo;
         public int Unknown5;
         
         public override ushort Header
@@ -37,7 +37,7 @@ namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
             serializer.WriteVarint(this.Unknown1);
             serializer.WriteVarint(this.Unknown2);
             serializer.WriteVarint(this.Unknown3);
-            serializer.WriteIPEndPoint(this.Unknown4);
+            serializer.WriteIPEndPoint(this.ConnectionInfo);
             serializer.WriteVarint(this.Unknown5);
         }
     }

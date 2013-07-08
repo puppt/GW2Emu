@@ -13,33 +13,27 @@ using GameRevision.GW2Emu.Core.Serializers;
 
 namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
 {
-    public class P17_UnknownMessage : GenericMessage
+    public class P10_AccountMedalsMessage : GenericMessage
     {
-        public int Unknown0;
-        public UID Unknown1;
-        public int Unknown2;
-        public string Unknown3;
-        public byte[] Unknown4;
+        public int SyncCount;
+        public byte[] MedalData;
         
         public override ushort Header
         {
             get
             {
-                return 17;
+                return 10;
             }
         }
         
         public override void Serialize(Serializer serializer)
         {
             base.Serialize(serializer);
-            serializer.WriteVarint(this.Unknown0);
-            serializer.WriteUID(this.Unknown1);
-            serializer.WriteVarint(this.Unknown2);
-            serializer.WriteUtf16String(this.Unknown3);
-            serializer.Write((ushort)Unknown4.Length);
-            for (int i = 0; i < Unknown4.Length; i++)
+            serializer.WriteVarint(this.SyncCount);
+            serializer.Write((ushort)MedalData.Length);
+            for (int i = 0; i < MedalData.Length; i++)
             {
-                serializer.Write(Unknown4[i]);
+                serializer.Write(MedalData[i]);
             }
         }
     }

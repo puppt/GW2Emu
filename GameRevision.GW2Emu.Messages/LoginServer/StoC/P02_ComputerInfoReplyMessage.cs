@@ -11,12 +11,11 @@ using GameRevision.GW2Emu.Core;
 using GameRevision.GW2Emu.Core.Types;
 using GameRevision.GW2Emu.Core.Serializers;
 
-namespace GameRevision.GW2Emu.Messages.LoginServer.CtoS
+namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
 {
-    public class P02_UnknownMessage : GenericTriggerableMessage
+    public class P02_ComputerInfoReplyMessage : GenericMessage
     {
-        public string Unknown0;
-        public string Unknown1;
+        public int Unknown0;
         
         public override ushort Header
         {
@@ -26,10 +25,10 @@ namespace GameRevision.GW2Emu.Messages.LoginServer.CtoS
             }
         }
         
-        public override void Deserialize(Deserializer deserializer)
+        public override void Serialize(Serializer serializer)
         {
-            this.Unknown0 = deserializer.ReadUtf16String();
-            this.Unknown1 = deserializer.ReadUtf16String();
+            base.Serialize(serializer);
+            serializer.WriteVarint(this.Unknown0);
         }
     }
 }

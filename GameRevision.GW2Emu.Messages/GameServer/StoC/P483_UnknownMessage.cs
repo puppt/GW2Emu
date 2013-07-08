@@ -15,7 +15,7 @@ namespace GameRevision.GW2Emu.Messages.GameServer.StoC
 {
     public class P483_UnknownMessage : GenericMessage
     {
-        public IPEndPoint Unknown0;
+        public IPEndPoint ConnectionInfo;
         public int Unknown1;
         public int Unknown2;
         public short Unknown3;
@@ -33,7 +33,7 @@ namespace GameRevision.GW2Emu.Messages.GameServer.StoC
         public override void Serialize(Serializer serializer)
         {
             base.Serialize(serializer);
-            serializer.WriteIPEndPoint(this.Unknown0);
+            serializer.WriteIPEndPoint(this.ConnectionInfo);
             serializer.WriteVarint(this.Unknown1);
             serializer.WriteVarint(this.Unknown2);
             serializer.Write(this.Unknown3);

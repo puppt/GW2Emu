@@ -13,30 +13,28 @@ using GameRevision.GW2Emu.Core.Serializers;
 
 namespace GameRevision.GW2Emu.Messages.LoginServer.StoC
 {
-    public class P04_UnknownMessage : GenericMessage
+    public class P25_GameServerInfoMessage : GenericMessage
     {
-        public int Unknown0;
-        public int Unknown1;
-        public int Unknown2;
+        public int Location;
+        public int Population;
+        public int TransferCost;
         public int Unknown3;
-        public int Unknown4;
         
         public override ushort Header
         {
             get
             {
-                return 4;
+                return 25;
             }
         }
         
         public override void Serialize(Serializer serializer)
         {
             base.Serialize(serializer);
-            serializer.WriteVarint(this.Unknown0);
-            serializer.WriteVarint(this.Unknown1);
-            serializer.WriteVarint(this.Unknown2);
+            serializer.WriteVarint(this.Location);
+            serializer.WriteVarint(this.Population);
+            serializer.WriteVarint(this.TransferCost);
             serializer.WriteVarint(this.Unknown3);
-            serializer.WriteVarint(this.Unknown4);
         }
     }
 }
