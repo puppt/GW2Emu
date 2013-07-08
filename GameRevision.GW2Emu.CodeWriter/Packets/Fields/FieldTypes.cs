@@ -393,9 +393,20 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets.Fields
         public override void WriteDeserializer(string fieldName)
         {
             this.Writer.WriteIf(Deserializer.GetMethodCall("Boolean"));
-            this.Writer.WriteInBlock(() =>
-                                this.Writer.WriteAssignStatement(fieldName,
-                                                            "new " + CSharpType + "(" + InnerType.DeserializerCall + ")"));
+            this.Writer.WriteInBlock(delegate
+            {
+                if (InnerType.GetType() == typeof(InnerStructFieldType))
+                {
+                    this.Writer.WriteAssignStatement(InnerType.CSharpType + " " + InnerType.CSharpType.ToLower(), InnerType.DeserializerCall);
+                    this.Writer.WriteMethodCall(InnerType.CSharpType.ToLower(), Deserializer.PacketMethod, Deserializer.Name);
+                    this.Writer.WriteAssignStatement(fieldName, "new " + CSharpType + "(" + InnerType.CSharpType.ToLower() + ")");
+                }
+                else
+                {
+                    this.Writer.WriteAssignStatement(fieldName, "new " + CSharpType + "(" + InnerType.DeserializerCall + ")");
+                }
+            });
+                                
             this.Writer.WriteElse();
             this.Writer.WriteInBlock(() => this.Writer.WriteAssignStatement(fieldName, "null"));
         }
@@ -533,7 +544,13 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets.Fields
 
         public override string DeserializerCall
         {
-            get { return "new " + Name + "(" + Deserializer.Name + ")"; }
+            get { return "new " + Name + "()"; }
+        }
+
+        public override void WriteDeserializer(string fieldName)
+        {
+
+            base.WriteDeserializer(fieldName);
         }
 
         public override void WriteSerializer(string fieldName)

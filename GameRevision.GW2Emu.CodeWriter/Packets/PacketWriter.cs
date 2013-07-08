@@ -44,6 +44,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
         private void WriteUsing()
         {
             this.writer.WriteUsing("System");
+            this.writer.WriteUsing("System.IO");
             this.writer.WriteUsing("System.Net");
             this.writer.WriteUsing("GameRevision.GW2Emu.Core");
             this.writer.WriteUsing("GameRevision.GW2Emu.Core.Types");
@@ -149,7 +150,14 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
                 field.Write();
 
-                fields.Add(new Field("this." + field.Name, field.Type));
+                if (fieldType.GetType() == typeof(VarArrayFieldType) || fieldType.GetType() == typeof(VarSmallArrayFieldType) || fieldType.GetType() == typeof(VarBigArrayFieldType))
+                {
+                    fields.Add(field);
+                }
+                else
+                {
+                    fields.Add(new Field("this." + fieldName, fieldType));
+                }
             }
         }
 

@@ -46,7 +46,7 @@ namespace GameRevision.GW2Emu.Core.Serializers
             return encoding.GetChars(buffer)[0];
         }
 
-        public string ReadUnicodeString()
+        public string ReadUtf16String()
         {
             string text = string.Empty;
             char character = character = this.ReadEncodedChar(Encoding.Unicode);
