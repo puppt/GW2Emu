@@ -43,15 +43,19 @@ namespace GameRevision.GW2Emu.LoginServer
         {
             byte[] buffer = this.Encryptor.Decrypt(e.Buffer);
             Deserializer deserializer = new Deserializer(buffer);
-            ushort header = deserializer.ReadUInt16();
-            ITriggerableMessage message = this.MessageFactory.CreateMessage(header);
-            message.Session = this;
-            message.Deserialize(deserializer);
-            message.TriggerEvent(this.ServerApp.EventAggregator);
+
+            while (deserializer.BaseStream.Position < deserializer.BaseStream.Length)
+            {
+                ushort header = deserializer.ReadUInt16();
+                ITriggerableMessage message = this.MessageFactory.CreateMessage(header);
+                message.Session = this;
+                message.Deserialize(deserializer);
+                message.TriggerEvent(this.ServerApp.EventAggregator);
+            }
         }
 
         public void SendMessage(IMessage message)
-        {
+        { 
             Serializer serializer = new Serializer();
             message.Serialize(serializer);
             byte[] compressed = this.Compressor.Compress(serializer.GetBytes());

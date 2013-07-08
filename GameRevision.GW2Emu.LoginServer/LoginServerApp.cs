@@ -22,7 +22,7 @@ namespace GameRevision.GW2Emu.LoginServer
 
         public LoginServerApp()
         {
-            this.EventAggregator = new EventAggregator();
+            this.EventAggregator = new ConcurrentEventAggregator();
             this.SessionCollection = new ConcurrentSessionCollection();
             this.SessionListener = new NetworkSessionListener(IPAddress.Any, 6112);
             this.SessionListener.NetworkSessionCreated += OnNetworkSessionCreated;
@@ -30,7 +30,6 @@ namespace GameRevision.GW2Emu.LoginServer
 
         public void RegisterHandlers()
         {
-            this.EventAggregator.Register(Assembly.GetExecutingAssembly().GetTypes());
         }
 
         public void Run()

@@ -16,11 +16,11 @@ namespace GameRevision.GW2Emu.Core
     /// </summary>
     public class ConcurrentEventAggregator : IEventAggregator
     {
-        IDictionary<Type, IList<EventHandler<IEvent>>> handlers;
+        private IDictionary<Type, IList<EventHandler<IEvent>>> handlers;
 
         public ConcurrentEventAggregator()
         {
-            handlers = new ConcurrentDictionary<Type, IList<EventHandler<IEvent>>>();
+            this.handlers = new ConcurrentDictionary<Type, IList<EventHandler<IEvent>>>();
         }
 
         public void Register(IRegisterable registerable)
@@ -49,12 +49,12 @@ namespace GameRevision.GW2Emu.Core
                                     target = Activator.CreateInstance(type);
                                 }
 
-                                if (!handlers.ContainsKey(parameterType))
+                                if (!this.handlers.ContainsKey(parameterType))
                                 {
-                                    handlers[parameterType] = new List<EventHandler<IEvent>>();
+                                    this.handlers[parameterType] = new List<EventHandler<IEvent>>();
                                 }
 
-                                var handlerList = handlers[parameterType];
+                                var handlerList = this.handlers[parameterType];
 
                                 // HACK: Find a fix for this problem.
                                 MethodInfo methodInfo = method;
@@ -74,12 +74,12 @@ namespace GameRevision.GW2Emu.Core
 
         public void Register<T>(EventHandler<T> handler) where T : IEvent
         {
-            if (!handlers.ContainsKey(typeof(T)))
+            if (!this.handlers.ContainsKey(typeof(T)))
             {
-                handlers[typeof(T)] = new List<EventHandler<IEvent>>();
+                this.handlers[typeof(T)] = new List<EventHandler<IEvent>>();
             }
 
-            var handlerList = handlers[typeof(T)];
+            var handlerList = this.handlers[typeof(T)];
 
             handlerList.Add(delegate(IEvent evt)
             {
@@ -91,7 +91,7 @@ namespace GameRevision.GW2Emu.Core
         {
             IList<EventHandler<IEvent>> handlerList;
 
-            if (handlers.TryGetValue(evt.GetType(), out handlerList))
+            if (this.handlers.TryGetValue(evt.GetType(), out handlerList))
             {
                 Parallel.ForEach(handlerList, handler =>
                 {
