@@ -1,5 +1,4 @@
 ﻿using System;
-using GameRevision.GW2Emu.Core.Events;
 
 namespace GameRevision.GW2Emu.Core
 {
@@ -9,7 +8,6 @@ namespace GameRevision.GW2Emu.Core
         {
             Console.Title = serverApp.Name;
             serverApp.RegisterHandlers();
-            serverApp.EventAggregator.Trigger(new StartupEvent(serverApp));
             serverApp.Run();
         }
     }

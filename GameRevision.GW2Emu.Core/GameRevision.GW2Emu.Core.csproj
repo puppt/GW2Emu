@@ -78,7 +78,6 @@
     <Compile Include="Serializers\Deserializer.cs" />
     <Compile Include="Serializers\Serializer.cs" />
     <Compile Include="ConcurrentSessionCollection.cs" />
-    <Compile Include="Events\StartupEvent.cs" />
     <Compile Include="Types\Optional.cs" />
     <Compile Include="Types\UID.cs" />
     <Compile Include="Types\Vector2.cs" />

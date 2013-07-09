@@ -3,6 +3,7 @@ using System.Net;
 using System.Reflection;
 using GameRevision.GW2Emu.Core;
 using GameRevision.GW2Emu.Network;
+using GameRevision.GW2Emu.LoginServer.Handlers;
 
 namespace GameRevision.GW2Emu.LoginServer
 {
@@ -30,6 +31,7 @@ namespace GameRevision.GW2Emu.LoginServer
 
         public void RegisterHandlers()
         {
+            this.EventAggregator.Register(new Login());
         }
 
         public void Run()
