@@ -25,7 +25,7 @@ namespace GameRevision.GW2Emu.LoginServer
         {
             this.EventAggregator = new ConcurrentEventAggregator();
             this.SessionCollection = new ConcurrentSessionCollection();
-            this.SessionListener = new NetworkSessionListener(IPAddress.Any, 6112);
+            this.SessionListener = new ClientManager(IPAddress.Any, 6112);
             this.SessionListener.NetworkSessionCreated += OnNetworkSessionCreated;
         }
 
@@ -45,7 +45,7 @@ namespace GameRevision.GW2Emu.LoginServer
             this.SessionCollection.StopAll();
         }
 
-        private void OnNetworkSessionCreated(object sender, NetworkSessionCreatedEventArgs e)
+        private void OnNetworkSessionCreated(object sender, NewClientEventArgs e)
         {
             ISession session = new LoginSession(this, e.NetworkSession);
             session.Run();

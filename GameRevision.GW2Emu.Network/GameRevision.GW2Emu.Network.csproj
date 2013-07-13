@@ -33,16 +33,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,15 +55,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handshakes\Handshake.cs" />
-    <Compile Include="NetworkSessionCreatedEventArgs.cs" />
-    <Compile Include="DataReceivedEventArgs.cs" />
-    <Compile Include="Handshakes\GameHandshake.cs" />
-    <Compile Include="Handshakes\LoginHandshake.cs" />
-    <Compile Include="INetworkSession.cs" />
-    <Compile Include="INetworkSessionListener.cs" />
-    <Compile Include="NetworkSession.cs" />
-    <Compile Include="NetworkSessionListener.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="NewClientEventArgs.cs" />
+    <Compile Include="NewDataEventArgs.cs" />
+    <Compile Include="LostClientEventArgs.cs" />
+    <Compile Include="ClientManager.cs" />
+    <Compile Include="HandshakeClientDecorator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

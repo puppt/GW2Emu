@@ -1,7 +1,7 @@
 ﻿using System;
 using GameRevision.GW2Emu.Core.Serializers;
 
-namespace GameRevision.GW2Emu.Network.Handshakes
+namespace GameRevision.GW2Emu.Network
 {
     public abstract class Handshake
     {

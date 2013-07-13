@@ -39,7 +39,7 @@ namespace GameRevision.GW2Emu.LoginServer
             this.NetworkSession.DataReceived += OnDataReceived;
         }
 
-        private void OnDataReceived(object sender, DataReceivedEventArgs e)
+        private void OnDataReceived(object sender, NewDataEventArgs e)
         {
             byte[] buffer = this.Encryptor.Decrypt(e.Buffer);
             Deserializer deserializer = new Deserializer(buffer);

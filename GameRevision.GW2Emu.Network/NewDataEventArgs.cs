@@ -2,13 +2,15 @@
 
 namespace GameRevision.GW2Emu.Network
 {
-    public class DataReceivedEventArgs : EventArgs
+    public class NewDataEventArgs : EventArgs
     {
+		public Client Client { get; private set; }
         public byte[] Buffer { get; private set; }
         public int BytesRead { get; private set; }
 
-        public DataReceivedEventArgs(byte[] buffer, int bytesRead)
+        public NewDataEventArgs(Client client, byte[] buffer, int bytesRead)
         {
+			this.Client = client;
             this.Buffer = buffer;
             this.BytesRead = bytesRead;
         }
