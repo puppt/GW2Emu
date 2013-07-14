@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Net;
@@ -11,26 +11,25 @@ namespace GameRevision.GW2Emu.Network
 {
     public sealed class ClientManager
     {
-        public event EventHandler<NewClientEventArgs> OnNewClient;
-        public event EventHandler<LostClientEventArgs> OnLostClient;
-        public event EventHandler<NewDataEventArgs> OnNewData;
+        public event System.EventHandler<NewClientEventArgs> OnNewClient;
+        public event System.EventHandler<LostClientEventArgs> OnLostClient;
+        public event System.EventHandler<NewDataEventArgs> OnNewData;
 
         public IPEndPoint EndPoint { get; private set; }
 
         private const int BACKLOG = 100;
-        private ICollection<Client> clients;
+        private ICollection<Client> clients = new List<Client>();
         private Socket socket;
 
         private bool running = false;
 
 
-        public ClientManager(IPAddress address, int port)
+        public ClientManager(int port)
         {
-            EndPoint = new IPEndPoint(address, port);
-
-            clients = new ConcurrentBag<Client>();
+            EndPoint = new IPEndPoint(IPAddress.Any, port);
 
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.Blocking = true;
             socket.Bind(EndPoint);
         }
 
@@ -38,35 +37,35 @@ namespace GameRevision.GW2Emu.Network
         public void Start()
         {
             running = true;
-            ParallelUtils.While(() => (running), Update());
+            ParallelUtils.While(() => (running), Update);
         }
 
 
         public void Stop()
         {
             running = false;
-            clients.All((client) => cient.Stop());
+            clients.All((client) => { client.Stop(); return true; });
             clients.Clear();
         }
 
 
-        internal void OnNewClient(Client client)
+        internal void NewClient(Client client)
         {
             OnNewClient(this, new NewClientEventArgs(client));
         }
 
 
-        internal void OnLostClient(Client client)
+        internal void LostClient(Client client)
         {
-            OnNewClient(this, new LostClientEventArgs(client));
+            OnLostClient(this, new LostClientEventArgs(client));
             
             clients.Remove(client);
         }
 
 
-        internal void OnNewData(Client client)
+        internal void NewData(Client client, byte[] buffer, int dataLen)
         {
-            OnNewClient(this, new NewClientEventArgs(client));
+            OnNewData(this, new NewDataEventArgs(client, buffer, dataLen));
         }
 
 
@@ -76,12 +75,12 @@ namespace GameRevision.GW2Emu.Network
 
             if (IsPending())
             {
-                var newClient = new Client(socket.Accept());
+                var newClient = new Client(this, socket.Accept());
 
                 clients.Add(newClient);
                 newClient.Start();
 
-                OnNewClient(newClient);
+                NewClient(newClient);
             }
         }
 

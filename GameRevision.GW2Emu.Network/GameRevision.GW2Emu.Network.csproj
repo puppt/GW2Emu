@@ -47,6 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="nunit.framework" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameRevision.GW2Emu.Core\GameRevision.GW2Emu.Core.csproj">
@@ -70,4 +71,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Neuer Ordner\" />
+  </ItemGroup>
 </Project>

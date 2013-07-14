@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GameRevision.GW2Emu.Core
@@ -11,7 +11,7 @@ namespace GameRevision.GW2Emu.Core
     {
         public static void While(Func<bool> condition, Action body) 
         { 
-            Parallel.ForEach(IterateUntilFalse(condition), () => body()); 
+            Parallel.ForEach(IterateUntilFalse(condition), (noparama) => body()); 
         }
 
         private static IEnumerable<bool> IterateUntilFalse(Func<bool> condition) 

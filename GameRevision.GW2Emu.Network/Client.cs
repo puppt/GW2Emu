@@ -22,6 +22,8 @@ namespace GameRevision.GW2Emu.Network
             this.clientMan = clientMan;
             this.socket = socket;
 
+            this.socket.Blocking = true;
+
             RemoteEndPoint = (IPEndPoint)socket.RemoteEndPoint;
             LocalEndPoint = (IPEndPoint)socket.LocalEndPoint;
         }
@@ -36,14 +38,14 @@ namespace GameRevision.GW2Emu.Network
         public void Invalidate()
         {
             Stop();
-            clientMan.OnLostClient(this);
+            clientMan.LostClient(this);
         }
 
 
         internal void Start()
         {
             running = true;
-            ParallelUtils.While(() => (running), Update());
+            ParallelUtils.While(() => (running), Update);
         }
 
 
@@ -67,7 +69,7 @@ namespace GameRevision.GW2Emu.Network
                 var buffer = new byte[socket.Available];
                 var dataLen = socket.Receive(buffer);
 
-                clientMan.OnNewData(buffer, dataLen);
+                clientMan.NewData(this, buffer, dataLen);
             }
         }
 

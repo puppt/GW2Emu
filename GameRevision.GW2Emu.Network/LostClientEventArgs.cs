@@ -2,7 +2,7 @@ using System;
 
 namespace GameRevision.GW2Emu.Network
 {
-    public class LostClientEventArgs
+    public class LostClientEventArgs : EventArgs
     {
         public Client Client { get; private set; }
 

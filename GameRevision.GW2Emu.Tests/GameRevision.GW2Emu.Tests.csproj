@@ -33,7 +33,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test.cs" />
+    <Compile Include="ClientManagerTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\GameRevision.GW2Emu.Network\GameRevision.GW2Emu.Network.csproj">
+      <Project>{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}</Project>
+      <Name>GameRevision.GW2Emu.Network</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
