@@ -11,13 +11,13 @@ namespace GameRevision.GW2Emu.Network
         public IPEndPoint RemoteEndPoint { get; private set; }
         public IPEndPoint LocalEndPoint { get; private set; }
 
-		private ClientManager clientMan;
+        private ClientManager clientMan;
         private Socket socket;
 
 
         public Client(ClientManager clientMan, Socket socket)
         {
-			this.clientMan = clientMan;
+            this.clientMan = clientMan;
             this.socket = socket;
 
             RemoteEndPoint = (IPEndPoint)socket.RemoteEndPoint;
@@ -27,11 +27,11 @@ namespace GameRevision.GW2Emu.Network
 
         public void Update()
         {
-			if (!IsConnected())
-			{
-				Invalidate();
-				return;
-			}
+            if (!IsConnected())
+            {
+                Invalidate();
+                return;
+            }
 
             if (socket.Available > 0)
             {
@@ -49,16 +49,16 @@ namespace GameRevision.GW2Emu.Network
         }
 
 
-		public void Invalidate()
-		{
-			socket.Close();
-			clientMan.OnLostClient(this);
-		}
+        public void Invalidate()
+        {
+            socket.Close();
+            clientMan.OnLostClient(this);
+        }
 
 
-		private bool IsConnected()
-		{
-			return (socket.Connected || socket.Poll(1, SelectMode.SelectRead | SelectMode.SelectWrite));
-		}
+        private bool IsConnected()
+        {
+            return (socket.Connected || socket.Poll(1, SelectMode.SelectRead | SelectMode.SelectWrite));
+        }
     }
 }

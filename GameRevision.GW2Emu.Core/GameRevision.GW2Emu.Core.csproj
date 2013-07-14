@@ -87,6 +87,7 @@
     <Compile Include="Types\WorldPosition.cs" />
     <Compile Include="GameHandshake.cs" />
     <Compile Include="LoginHandshake.cs" />
+    <Compile Include="ParallelUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
