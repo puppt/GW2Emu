@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using GW2Emu.Core;
+using GameRevision.GW2Emu.Core;
 
 namespace GameRevision.GW2Emu.Network
 {
@@ -34,25 +35,6 @@ namespace GameRevision.GW2Emu.Network
         }
 
 
-        public void Update()
-        {
-            socket.Listen(BACKLOG);
-
-            if (IsPending())
-            {
-                var newClient = new Client(socket.Accept());
-
-                clients.Add(newClient);
-                OnNewClient(newClient);
-            }
-
-            Parallel.ForEach(clients, client => 
-            {
-                client.Update();
-            });
-        }
-
-
         public void Start()
         {
             running = true;
@@ -63,16 +45,18 @@ namespace GameRevision.GW2Emu.Network
         public void Stop()
         {
             running = false;
+            clients.All((client) => cient.Stop());
+            clients.Clear();
         }
 
 
-        internal virtual void OnNewClient(Client client)
+        internal void OnNewClient(Client client)
         {
             OnNewClient(this, new NewClientEventArgs(client));
         }
 
 
-        internal virtual void OnLostClient(Client client)
+        internal void OnLostClient(Client client)
         {
             OnNewClient(this, new LostClientEventArgs(client));
             
@@ -80,9 +64,25 @@ namespace GameRevision.GW2Emu.Network
         }
 
 
-        internal virtual void OnNewData(Client client)
+        internal void OnNewData(Client client)
         {
             OnNewClient(this, new NewClientEventArgs(client));
+        }
+
+
+        private void Update()
+        {
+            socket.Listen(BACKLOG);
+
+            if (IsPending())
+            {
+                var newClient = new Client(socket.Accept());
+
+                clients.Add(newClient);
+                newClient.Start();
+
+                OnNewClient(newClient);
+            }
         }
 
 

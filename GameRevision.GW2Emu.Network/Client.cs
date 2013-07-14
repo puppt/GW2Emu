@@ -14,6 +14,8 @@ namespace GameRevision.GW2Emu.Network
         private ClientManager clientMan;
         private Socket socket;
 
+        private bool running = false;
+
 
         public Client(ClientManager clientMan, Socket socket)
         {
@@ -25,7 +27,34 @@ namespace GameRevision.GW2Emu.Network
         }
 
 
-        public void Update()
+        public void Send(byte[] data)
+        {
+            socket.Send(data);
+        }
+
+
+        public void Invalidate()
+        {
+            Stop();
+            clientMan.OnLostClient(this);
+        }
+
+
+        internal void Start()
+        {
+            running = true;
+            ParallelUtils.While(() => (running), Update());
+        }
+
+
+        internal void Stop()
+        {
+            running = false;
+            socket.Close();
+        }
+
+
+        private void Update()
         {
             if (!IsConnected())
             {
@@ -40,19 +69,6 @@ namespace GameRevision.GW2Emu.Network
 
                 clientMan.OnNewData(buffer, dataLen);
             }
-        }
-
-
-        public void Send(byte[] data)
-        {
-            socket.Send(data);
-        }
-
-
-        public void Invalidate()
-        {
-            socket.Close();
-            clientMan.OnLostClient(this);
         }
 
 
