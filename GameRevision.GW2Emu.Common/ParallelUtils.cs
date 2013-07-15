@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GameRevision.GW2Emu.Core
+namespace GameRevision.GW2Emu.Common
 {
     ///<summary>
     ///Class taken from Stackoverflow: http://stackoverflow.com/questions/8671771/whats-the-best-way-of-achieving-a-parallel-infinite-loop

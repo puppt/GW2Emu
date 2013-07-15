@@ -1,5 +1,5 @@
 ﻿using System;
-using GameRevision.GW2Emu.Core.Serializers;
+//using GameRevision.GW2Emu.Core.Serializers;
 
 //namespace GameRevision.GW2Emu.Network
 //{

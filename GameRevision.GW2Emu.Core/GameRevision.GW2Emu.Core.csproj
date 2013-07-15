@@ -74,7 +74,6 @@
     <Compile Include="IEvent.cs" />
     <Compile Include="IMessage.cs" />
     <Compile Include="IServerApp.cs" />
-    <Compile Include="ISession.cs" />
     <Compile Include="ITriggerableMessage.cs" />
     <Compile Include="Serializers\Deserializer.cs" />
     <Compile Include="Serializers\Serializer.cs" />
@@ -87,7 +86,6 @@
     <Compile Include="Types\WorldPosition.cs" />
     <Compile Include="GameHandshake.cs" />
     <Compile Include="LoginHandshake.cs" />
-    <Compile Include="ParallelUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

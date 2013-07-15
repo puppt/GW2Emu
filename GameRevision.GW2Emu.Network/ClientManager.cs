@@ -1,93 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
-using System.Linq;
+using System;
+using System.Collections;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
-using GameRevision.GW2Emu.Core;
 
 namespace GameRevision.GW2Emu.Network
 {
+    /// <summary>
+    /// Based on http://msdn.microsoft.com/en-us/magazine/cc300760.aspx#S5
+    /// </summary>
     public sealed class ClientManager
     {
-        public event System.EventHandler<NewClientEventArgs> OnNewClient;
-        public event System.EventHandler<LostClientEventArgs> OnLostClient;
-        public event System.EventHandler<NewDataEventArgs> OnNewData;
-
-        public IPEndPoint EndPoint { get; private set; }
+        public event EventHandler<NewClientEventArgs> OnNewClient;
+        internal event Action OnShutdown;
 
         private const int BACKLOG = 100;
-        private ICollection<Client> clients = new List<Client>();
-        private Socket socket;
-
-        private bool running = false;
+        private Socket serverSocket;
 
 
         public ClientManager(int port)
         {
-            EndPoint = new IPEndPoint(IPAddress.Any, port);
-
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.Blocking = true;
-            socket.Bind(EndPoint);
+            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            serverSocket.Bind(new IPEndPoint(IPAddress.Any, port));
         }
 
 
         public void Start()
         {
-            running = true;
-            ParallelUtils.While(() => (running), Update);
+            serverSocket.Listen(BACKLOG);
+
+            for (int i = 0; i < 10; i++)
+            {
+                serverSocket.BeginAccept(
+                    new AsyncCallback(AcceptCallback), 
+                    null);
+            }
         }
 
 
         public void Stop()
         {
-            running = false;
-            clients.All((client) => { client.Stop(); return true; });
-            clients.Clear();
+            serverSocket.Close();
+            OnShutdown();
         }
 
 
-        internal void NewClient(Client client)
+        private void AcceptCallback(IAsyncResult result)
         {
-            OnNewClient(this, new NewClientEventArgs(client));
-        }
-
-
-        internal void LostClient(Client client)
-        {
-            OnLostClient(this, new LostClientEventArgs(client));
-            
-            clients.Remove(client);
-        }
-
-
-        internal void NewData(Client client, byte[] buffer, int dataLen)
-        {
-            OnNewData(this, new NewDataEventArgs(client, buffer, dataLen));
-        }
-
-
-        private void Update()
-        {
-            socket.Listen(BACKLOG);
-
-            if (IsPending())
+            try
             {
-                var newClient = new Client(this, socket.Accept());
+                // accept the client and create the object
+                var clientSocket = serverSocket.EndAccept(result);
 
-                clients.Add(newClient);
-                newClient.Start();
+                var newClient = new Client(this, clientSocket);
+                newClient.StartRecieve();
 
-                NewClient(newClient);
+                // trigger the event
+                OnNewClient(this, new NewClientEventArgs(newClient));
+
+                // restart accept
+                serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
             }
-        }
-
-
-        private bool IsPending()
-        {
-            return socket.Poll(0, SelectMode.SelectRead);
+            catch (SocketException exc)
+            {
+                serverSocket.Close();
+                Console.WriteLine("Socket exception: " + exc.SocketErrorCode);
+            }
+            catch (Exception exc)
+            {
+                serverSocket.Close();
+                Console.WriteLine("Exception: " + exc);
+            }
         }
     }
 }
+

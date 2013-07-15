@@ -50,18 +50,11 @@
     <Reference Include="nunit.framework" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameRevision.GW2Emu.Core\GameRevision.GW2Emu.Core.csproj">
-      <Project>{572FD524-0DEA-4FDA-A539-6703E301F7A7}</Project>
-      <Name>GameRevision.GW2Emu.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Client.cs" />
     <Compile Include="NewClientEventArgs.cs" />
     <Compile Include="NewDataEventArgs.cs" />
     <Compile Include="LostClientEventArgs.cs" />
     <Compile Include="ClientManager.cs" />
-    <Compile Include="HandshakeClientDecorator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -72,6 +65,9 @@
   </Target>
   -->
   <ItemGroup>
-    <Folder Include="Neuer Ordner\" />
+    <ProjectReference Include="..\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
+      <Project>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</Project>
+      <Name>GameRevision.GW2Emu.Common</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

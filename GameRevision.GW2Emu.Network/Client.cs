@@ -2,30 +2,31 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using GameRevision.GW2Emu.Core;
+using GameRevision.GW2Emu.Common;
 
 namespace GameRevision.GW2Emu.Network
 {
     public sealed class Client
     {
+        public event EventHandler<NewDataEventArgs> OnNewData;
+        public event EventHandler<LostClientEventArgs> OnLostClient;
+
         public IPEndPoint RemoteEndPoint { get; private set; }
         public IPEndPoint LocalEndPoint { get; private set; }
 
-        private ClientManager clientMan;
         private Socket socket;
+        private byte[] buffer = new byte[255];
 
-        private bool running = false;
 
-
-        public Client(ClientManager clientMan, Socket socket)
+        public Client(ClientManager manager, Socket socket)
         {
-            this.clientMan = clientMan;
             this.socket = socket;
-
-            this.socket.Blocking = true;
 
             RemoteEndPoint = (IPEndPoint)socket.RemoteEndPoint;
             LocalEndPoint = (IPEndPoint)socket.LocalEndPoint;
+
+            // kick this when the server is going down
+            manager.OnShutdown += Kick;
         }
 
 
@@ -35,48 +36,56 @@ namespace GameRevision.GW2Emu.Network
         }
 
 
-        public void Invalidate()
+        public void Kick()
         {
-            Stop();
-            clientMan.LostClient(this);
-        }
-
-
-        internal void Start()
-        {
-            running = true;
-            ParallelUtils.While(() => (running), Update);
-        }
-
-
-        internal void Stop()
-        {
-            running = false;
             socket.Close();
+            OnLostClient(this, new LostClientEventArgs(this));
         }
 
 
-        private void Update()
+        internal void StartRecieve()
         {
-            if (!IsConnected())
-            {
-                Invalidate();
-                return;
-            }
-
-            if (socket.Available > 0)
-            {
-                var buffer = new byte[socket.Available];
-                var dataLen = socket.Receive(buffer);
-
-                clientMan.NewData(this, buffer, dataLen);
-            }
+            socket.BeginReceive(
+                buffer, 0, buffer.Length, 
+                SocketFlags.None, 
+                new AsyncCallback(ReceiveCallback), 
+                null);
         }
 
 
-        private bool IsConnected()
+        private void ReceiveCallback(IAsyncResult result)
         {
-            return (socket.Connected || socket.Poll(1, SelectMode.SelectRead | SelectMode.SelectWrite));
+            try
+            {
+                // recieve the data, do a failcheck
+                int dataLen = socket.EndReceive(result);
+
+                if (dataLen == 0)
+                {
+                    Kick();
+                    return;
+                }
+
+                // trigger the event
+                OnNewData(this, new NewDataEventArgs(this, buffer, dataLen));
+
+                // restart recieve
+                socket.BeginReceive(
+                    buffer, 0, buffer.Length, 
+                    SocketFlags.None, 
+                    new AsyncCallback(ReceiveCallback), 
+                    null);
+            }
+            catch (SocketException exc)
+            {
+                Kick();
+                Console.WriteLine("Socket exception: " + exc.SocketErrorCode);
+            }
+            catch (Exception exc)
+            {
+                Kick();
+                Console.WriteLine("Exception: " + exc);
+            }
         }
     }
 }
