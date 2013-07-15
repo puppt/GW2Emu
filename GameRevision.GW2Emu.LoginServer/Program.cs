@@ -7,8 +7,8 @@ namespace GameRevision.GW2Emu.LoginServer
     {
         public static void Main()
         {
-            IServerApp serverApp = new LoginServerApp();
-            ServerAppExecutor.RunConsole(serverApp);
+//            IServerApp serverApp = new LoginServerApp();
+//            ServerAppExecutor.RunConsole(serverApp);
         }
     }
 }

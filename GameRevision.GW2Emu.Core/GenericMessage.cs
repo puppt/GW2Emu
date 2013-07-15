@@ -5,7 +5,7 @@ namespace GameRevision.GW2Emu.Core
 {
     public class GenericMessage : IMessage
     {
-        public ISession Session { get; set; }
+        //public ISession Session { get; set; }
 
         public virtual ushort Header
         {
