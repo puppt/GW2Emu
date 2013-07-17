@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace GameRevision.GW2Emu.Network
+namespace GameRevision.GW2Emu.Common.Network
 {
     public sealed class Client
     {

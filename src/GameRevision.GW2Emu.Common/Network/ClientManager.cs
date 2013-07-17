@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 
-namespace GameRevision.GW2Emu.Network
+namespace GameRevision.GW2Emu.Common.Network
 {
     /// <summary>
     /// Based on http://msdn.microsoft.com/en-us/magazine/cc300760.aspx#S5

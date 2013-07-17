@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}</ProjectGuid>
+    <ProjectGuid>{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>GameRevision.GW2Emu.Tests</RootNamespace>
-    <AssemblyName>GameRevision.GW2Emu.Tests</AssemblyName>
+    <RootNamespace>GameRevision.GW2Emu.Common.Tests</RootNamespace>
+    <AssemblyName>GameRevision.GW2Emu.Common.Tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,24 +32,15 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Network\ClientManagerTest.cs" />
-    <Compile Include="Common\Events\EventAggregatorTest.cs" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\GameRevision.GW2Emu.Network\GameRevision.GW2Emu.Network.csproj">
-      <Project>{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}</Project>
-      <Name>GameRevision.GW2Emu.Network</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
+    <Compile Include="ClientManagerTest.cs" />
+    <Compile Include="EventAggregatorTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
       <Project>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</Project>
       <Name>GameRevision.GW2Emu.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Network\" />
-    <Folder Include="Common\" />
-    <Folder Include="Common\Events\" />
   </ItemGroup>
 </Project>

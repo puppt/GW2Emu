@@ -1,6 +1,6 @@
 using System;
 
-namespace GameRevision.GW2Emu.Network
+namespace GameRevision.GW2Emu.Common.Network
 {
     public class LostClientEventArgs : EventArgs
     {

@@ -103,10 +103,6 @@
     <Folder Include="Session\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameRevision.GW2Emu.Network\GameRevision.GW2Emu.Network.csproj">
-      <Project>{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}</Project>
-      <Name>GameRevision.GW2Emu.Network</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
       <Project>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</Project>
       <Name>GameRevision.GW2Emu.Common</Name>

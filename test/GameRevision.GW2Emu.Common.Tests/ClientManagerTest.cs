@@ -1,10 +1,10 @@
 using System;
 using System.Net.Sockets;
 using System.Threading;
-using GameRevision.GW2Emu.Network;
+using GameRevision.GW2Emu.Common.Network;
 using NUnit.Framework;
 
-namespace GameRevision.GW2Emu.Tests.Network
+namespace GameRevision.GW2Emu.Common.Tests
 {
     [TestFixture()]
     public class ClientManagerTest

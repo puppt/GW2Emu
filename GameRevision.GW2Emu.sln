@@ -1,17 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.Network", "GameRevision.GW2Emu.Network\GameRevision.GW2Emu.Network.csproj", "{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.CodeWriter", "src\GameRevision.GW2Emu.CodeWriter\GameRevision.GW2Emu.CodeWriter.csproj", "{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.LoginServer", "GameRevision.GW2Emu.LoginServer\GameRevision.GW2Emu.LoginServer.csproj", "{925E3982-B8B0-4EF9-9842-722FD0B2940F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.Common", "src\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj", "{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.CodeWriter", "GameRevision.GW2Emu.CodeWriter\GameRevision.GW2Emu.CodeWriter.csproj", "{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.GameServer", "src\GameRevision.GW2Emu.GameServer\GameRevision.GW2Emu.GameServer.csproj", "{27FA2BE7-EEDD-4A1F-89DC-D338D89C500E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.Tests", "GameRevision.GW2Emu.Tests\GameRevision.GW2Emu.Tests.csproj", "{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.LoginServer", "src\GameRevision.GW2Emu.LoginServer\GameRevision.GW2Emu.LoginServer.csproj", "{925E3982-B8B0-4EF9-9842-722FD0B2940F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.Common", "GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj", "{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.GameServer", "GameRevision.GW2Emu.GameServer\GameRevision.GW2Emu.GameServer.csproj", "{27FA2BE7-EEDD-4A1F-89DC-D338D89C500E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRevision.GW2Emu.Common.Tests", "test\GameRevision.GW2Emu.Common.Tests\GameRevision.GW2Emu.Common.Tests.csproj", "{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,17 +21,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Debug|x86.ActiveCfg = Debug|x86
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Debug|x86.Build.0 = Debug|x86
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Release|Any CPU.ActiveCfg = Release|x86
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Release|Mixed Platforms.Build.0 = Release|x86
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Release|x86.ActiveCfg = Release|x86
-		{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}.Release|x86.Build.0 = Release|x86
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Debug|x86.Build.0 = Debug|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Release|x86.ActiveCfg = Release|Any CPU
+		{1AA5382F-13DE-4205-A6E9-5BBDE0C55BE4}.Release|x86.Build.0 = Release|Any CPU
 		{27FA2BE7-EEDD-4A1F-89DC-D338D89C500E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27FA2BE7-EEDD-4A1F-89DC-D338D89C500E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{27FA2BE7-EEDD-4A1F-89DC-D338D89C500E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
@@ -46,23 +45,25 @@ Global
 		{27FA2BE7-EEDD-4A1F-89DC-D338D89C500E}.Release|x86.ActiveCfg = Release|Any CPU
 		{27FA2BE7-EEDD-4A1F-89DC-D338D89C500E}.Release|x86.Build.0 = Release|Any CPU
 		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|x86.ActiveCfg = Debug|x86
 		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Debug|x86.Build.0 = Debug|x86
-		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|Any CPU.ActiveCfg = Release|x86
-		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|Mixed Platforms.Build.0 = Release|x86
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|x86.ActiveCfg = Release|x86
 		{6BD519A4-FB5E-41A6-ADA0-60374B6A1E09}.Release|x86.Build.0 = Release|x86
 		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Debug|x86.ActiveCfg = Debug|x86
 		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Debug|x86.Build.0 = Debug|x86
-		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|Any CPU.ActiveCfg = Release|x86
-		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|Mixed Platforms.Build.0 = Release|x86
+		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|x86.ActiveCfg = Release|x86
 		{925E3982-B8B0-4EF9-9842-722FD0B2940F}.Release|x86.Build.0 = Release|x86
 		{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -77,21 +78,11 @@ Global
 		{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}.Release|x86.ActiveCfg = Release|Any CPU
 		{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}.Release|x86.Build.0 = Release|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Debug|x86.Build.0 = Debug|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Release|x86.ActiveCfg = Release|Any CPU
-		{DC330A5E-D5C8-42CF-8307-D4C26E3AEB85}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = GameRevision.GW2Emu.Network\GameRevision.GW2Emu.Network.csproj
+		StartupItems = $0
+		$0.Item = src\GameRevision.GW2Emu.LoginServer\GameRevision.GW2Emu.LoginServer.csproj
+		$0.Item = src\GameRevision.GW2Emu.GameServer\GameRevision.GW2Emu.GameServer.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

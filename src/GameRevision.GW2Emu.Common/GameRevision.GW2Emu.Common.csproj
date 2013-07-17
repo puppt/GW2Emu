@@ -30,6 +30,9 @@
     <Reference Include="System.Numerics" />
     <Reference Include="Mono.Security" />
     <Reference Include="System" />
+    <Reference Include="LZ4Sharp">
+      <HintPath>..\..\lib\LZ4Sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,6 +62,11 @@
     <Compile Include="Messaging\GenericTriggerableMessage.cs" />
     <Compile Include="Messaging\ITriggerableMessage.cs" />
     <Compile Include="LZ4Compressor.cs" />
+    <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\ClientManager.cs" />
+    <Compile Include="Network\LostClientEventArgs.cs" />
+    <Compile Include="Network\NewClientEventArgs.cs" />
+    <Compile Include="Network\NewDataEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -66,5 +74,6 @@
     <Folder Include="Serialization\" />
     <Folder Include="Math\" />
     <Folder Include="Messaging\" />
+    <Folder Include="Network\" />
   </ItemGroup>
 </Project>
