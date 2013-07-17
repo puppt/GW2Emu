@@ -27,6 +27,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.Numerics" />
+    <Reference Include="Mono.Security" />
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +37,34 @@
     <Compile Include="HandshakeClientDecorator.cs" />
     <Compile Include="ISession.cs" />
     <Compile Include="ISessionState.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\IRegisterable.cs" />
+    <Compile Include="Serialization\Deserializer.cs" />
+    <Compile Include="Math\Vector2.cs" />
+    <Compile Include="Math\Vector3.cs" />
+    <Compile Include="Math\Vector4.cs" />
+    <Compile Include="Math\WorldPosition.cs" />
+    <Compile Include="UID.cs" />
+    <Compile Include="Serialization\BinaryBuilder.cs" />
+    <Compile Include="Events\EventHandler.cs" />
+    <Compile Include="Cryptography\DiffieHellman.cs" />
+    <Compile Include="Cryptography\Keys.cs" />
+    <Compile Include="Cryptography\RC4.cs" />
+    <Compile Include="Cryptography\RC4Encryptor.cs" />
+    <Compile Include="Cryptography\Utilities.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
+    <Compile Include="Messaging\GenericMessage.cs" />
+    <Compile Include="Messaging\GenericTriggerableMessage.cs" />
+    <Compile Include="Messaging\ITriggerableMessage.cs" />
+    <Compile Include="LZ4Compressor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Events\" />
+    <Folder Include="Serialization\" />
+    <Folder Include="Math\" />
+    <Folder Include="Messaging\" />
+  </ItemGroup>
 </Project>

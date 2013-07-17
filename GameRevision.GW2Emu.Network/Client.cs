@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
-using GameRevision.GW2Emu.Common;
 
 namespace GameRevision.GW2Emu.Network
 {

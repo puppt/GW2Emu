@@ -52,24 +52,64 @@
   <ItemGroup>
     <Compile Include="Handlers\Login.cs" />
     <Compile Include="LoginServerApp.cs" />
-    <Compile Include="LoginSession.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Messages\CtoS\P01_PingServerMessage.cs" />
+    <Compile Include="Messages\CtoS\P02_ComputerUserNameMessage.cs" />
+    <Compile Include="Messages\CtoS\P03_ComputerInfoMessage.cs" />
+    <Compile Include="Messages\CtoS\P04_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P05_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P10_ClientSessionInfoMessage.cs" />
+    <Compile Include="Messages\CtoS\P11_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P12_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P14_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P15_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P16_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P20_CharacterDeleteMessage.cs" />
+    <Compile Include="Messages\CtoS\P21_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P22_CharacterSelectMessage.cs" />
+    <Compile Include="Messages\CtoS\P23_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P24_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P25_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P26_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P29_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P34_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P35_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P36_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P01_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P02_ComputerInfoReplyMessage.cs" />
+    <Compile Include="Messages\StoC\P03_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P04_ClientSyncMessage.cs" />
+    <Compile Include="Messages\StoC\P07_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P08_AccountInfoMessage.cs" />
+    <Compile Include="Messages\StoC\P10_AccountMedalsMessage.cs" />
+    <Compile Include="Messages\StoC\P13_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P16_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P17_CharacterInfoMessage.cs" />
+    <Compile Include="Messages\StoC\P18_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P20_ReferToGameServerMessage.cs" />
+    <Compile Include="Messages\StoC\P23_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P24_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P25_GameServerInfoMessage.cs" />
+    <Compile Include="Messages\StoC\P26_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P27_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P28_UnknownMessage.cs" />
+    <Compile Include="Messages\LoginMessageFactory.cs" />
+    <Compile Include="Session\LoginSession.cs" />
+    <Compile Include="Session\LoginHandshake.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Session\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameRevision.GW2Emu.Core\GameRevision.GW2Emu.Core.csproj">
-      <Project>{572FD524-0DEA-4FDA-A539-6703E301F7A7}</Project>
-      <Name>GameRevision.GW2Emu.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GameRevision.GW2Emu.Messages\GameRevision.GW2Emu.Messages.csproj">
-      <Project>{32BCE439-182E-42C3-BC78-C0994CF5FD84}</Project>
-      <Name>GameRevision.GW2Emu.Messages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameRevision.GW2Emu.Network\GameRevision.GW2Emu.Network.csproj">
       <Project>{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}</Project>
       <Name>GameRevision.GW2Emu.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
+      <Project>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</Project>
+      <Name>GameRevision.GW2Emu.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

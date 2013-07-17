@@ -33,7 +33,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientManagerTest.cs" />
+    <Compile Include="Network\ClientManagerTest.cs" />
+    <Compile Include="Common\Events\EventAggregatorTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -41,5 +42,14 @@
       <Project>{25E2CD3E-5E44-4114-AF26-F9BEC45FF948}</Project>
       <Name>GameRevision.GW2Emu.Network</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
+      <Project>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</Project>
+      <Name>GameRevision.GW2Emu.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Network\" />
+    <Folder Include="Common\" />
+    <Folder Include="Common\Events\" />
   </ItemGroup>
 </Project>
