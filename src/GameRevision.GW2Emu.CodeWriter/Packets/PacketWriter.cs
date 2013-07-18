@@ -46,9 +46,9 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             this.writer.WriteUsing("System");
             this.writer.WriteUsing("System.IO");
             this.writer.WriteUsing("System.Net");
-            this.writer.WriteUsing("GameRevision.GW2Emu.Core");
-            this.writer.WriteUsing("GameRevision.GW2Emu.Core.Types");
-            this.writer.WriteUsing("GameRevision.GW2Emu.Core.Serializers");
+            this.writer.WriteUsing("GameRevision.GW2Emu.Common");
+            this.writer.WriteUsing("GameRevision.GW2Emu.Common.Math");
+            this.writer.WriteUsing("GameRevision.GW2Emu.Common.Serialization");
         }
 
         private void WriteNamespace()
@@ -65,23 +65,14 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
                 direction = "StoC";
             }
 
-            this.writer.WriteNamespace("Messages." + type.GetServerName().ToString() + "." + direction);
+            this.writer.WriteNamespace(type.GetServerName() + ".Messages." + direction);
             this.writer.WriteInBlock(this.WriteClass);
         }
 
         private void WriteClass()
         {
             ProtocolSimpleTypes type = protocol.type;
-            string baseClass = string.Empty;
-
-            if (type.GetPacketDirection() == PacketDirection.Out)
-            {
-                baseClass = "GenericMessage";
-            }
-            else
-            {
-                baseClass = "GenericTriggerableMessage";
-            }
+            string baseClass = "GenericMessage";
 
             this.writer.WriteClass(this.headerEnum.NamesByHeader[message.header], baseClass);
 

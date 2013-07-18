@@ -165,6 +165,11 @@ namespace GameRevision.GW2Emu.CodeWriter.CSharp
             this.writer.WriteLine(Access + " " + type + " " + method + "(" + argument + ")");
         }
 
+        public void WriteStaticMethod(string type, string method, string argument)
+        {
+            this.writer.WriteLine(Access + " static " + type + " " + method + "(" + argument + ")");
+        }
+
         public void WriteOverridingMethod(string method, string argument)
         {
             this.writer.WriteLine(Access + " override void " + method + "(" + argument + ")");

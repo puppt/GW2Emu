@@ -95,7 +95,7 @@
     <Compile Include="Messages\StoC\P28_UnknownMessage.cs" />
     <Compile Include="Messages\LoginMessageFactory.cs" />
     <Compile Include="Session\LoginSession.cs" />
-    <Compile Include="Session\LoginHandshake.cs" />
+    <Compile Include="Session\HandshakeState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Messages\" />

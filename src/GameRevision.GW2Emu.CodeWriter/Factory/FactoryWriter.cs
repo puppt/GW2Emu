@@ -40,27 +40,26 @@ namespace GameRevision.GW2Emu.CodeWriter.Factory
         {
             string serverName = this.protocol.type.GetServerName().ToString();
             this.writer.WriteUsing("System");
-            this.writer.WriteUsing("GameRevision.GW2Emu.Core");
-            this.writer.WriteUsing("GameRevision.GW2Emu.Messages." + serverName + ".CtoS");
+            this.writer.WriteUsing("GameRevision.GW2Emu.Common.Messaging");
+            this.writer.WriteUsing("GameRevision.GW2Emu." + serverName + ".Messages.CtoS");
         }
 
         private void WriteNamespace()
         {
             string serverName = this.protocol.type.GetServerName().ToString();
-            this.writer.WriteNamespace("Messages." + serverName);
+            this.writer.WriteNamespace(serverName + ".Messages");
             this.writer.WriteInBlock(this.WriteClass);
         }
 
         private void WriteClass()
         {
-            string className = protocol.type.GetServerName().ToString().Replace("Server", string.Empty) + "MessageFactory";
-            this.writer.WriteClass(className, "IMessageFactory");
+            this.writer.WriteClass("ClientMessageFactory", "IMessageFactory");
             this.writer.WriteInBlock(this.WriteMethod);
         }
 
         private void WriteMethod()
         {
-            this.writer.WriteMethod("ITriggerableMessage", "CreateMessage", "ushort header");
+            this.writer.WriteStaticMethod("ITriggerableMessage", "CreateMessage", "ushort header");
             this.writer.WriteInBlock(this.WriteSwitch);
         }
 

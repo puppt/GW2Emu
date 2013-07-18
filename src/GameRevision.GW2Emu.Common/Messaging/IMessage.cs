@@ -1,9 +1,9 @@
 ﻿using System;
-using GameRevision.GW2Emu.Common.Serialization;
+using GameRevision.GW2Emu.Common.Events;
 
-namespace GameRevision.GW2Emu.Common
+namespace GameRevision.GW2Emu.Common.Messaging
 {
-    public interface IMessage
+    public interface IMessage : IEvent
     {
         // TODO: Come up with a decent interface!
         IMessage Deserialize(byte[] data);

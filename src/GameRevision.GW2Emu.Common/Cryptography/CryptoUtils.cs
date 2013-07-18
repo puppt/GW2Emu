@@ -1,9 +1,9 @@
 ﻿using System;
 using GameRevision.GW2Emu.Common.Serialization;
 
-namespace GameRevision.GW2Emu.Core.Cryptography
+namespace GameRevision.GW2Emu.Common.Cryptography
 {
-    public static class Utilities
+    public static class CryptoUtils
     {
 
         public static byte[] GetRandomBytes()

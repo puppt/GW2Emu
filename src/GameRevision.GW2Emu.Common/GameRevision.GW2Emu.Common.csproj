@@ -37,8 +37,6 @@
   <ItemGroup>
     <Compile Include="ParallelUtils.cs" />
     <Compile Include="HandshakeClientDecorator.cs" />
-    <Compile Include="ISession.cs" />
-    <Compile Include="ISessionState.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventAggregator.cs" />
@@ -55,17 +53,19 @@
     <Compile Include="Cryptography\Keys.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\RC4Encryptor.cs" />
-    <Compile Include="Cryptography\Utilities.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\GenericMessage.cs" />
-    <Compile Include="Messaging\GenericTriggerableMessage.cs" />
-    <Compile Include="Messaging\ITriggerableMessage.cs" />
     <Compile Include="LZ4Compressor.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\ClientManager.cs" />
     <Compile Include="Network\LostClientEventArgs.cs" />
     <Compile Include="Network\NewClientEventArgs.cs" />
     <Compile Include="Network\NewDataEventArgs.cs" />
+    <Compile Include="Cryptography\CryptoUtils.cs" />
+    <Compile Include="Session\ISession.cs" />
+    <Compile Include="Session\ISessionState.cs" />
+    <Compile Include="Session\InvalidState.cs" />
+    <Compile Include="Session\GenericSession.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -74,5 +74,6 @@
     <Folder Include="Math\" />
     <Folder Include="Messaging\" />
     <Folder Include="Network\" />
+    <Folder Include="Session\" />
   </ItemGroup>
 </Project>

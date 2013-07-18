@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameRevision.GW2Emu.Common
+namespace GameRevision.GW2Emu.Common.Messaging
 {
     public class GenericMessage : IMessage
     {
