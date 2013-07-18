@@ -98,7 +98,6 @@
     <Compile Include="Session\LoginHandshake.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
     <Folder Include="Messages\" />
     <Folder Include="Session\" />
   </ItemGroup>

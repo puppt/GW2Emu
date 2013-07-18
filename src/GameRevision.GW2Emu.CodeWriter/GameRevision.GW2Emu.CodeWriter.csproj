@@ -62,7 +62,6 @@
     <Compile Include="Packets\IOConstants.cs" />
     <Compile Include="Packets\PacketWriter.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml\Templates.cs">
       <DependentUpon>Templates.xsd</DependentUpon>
     </Compile>

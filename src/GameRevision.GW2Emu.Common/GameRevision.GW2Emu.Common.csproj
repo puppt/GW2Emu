@@ -35,7 +35,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ParallelUtils.cs" />
     <Compile Include="HandshakeClientDecorator.cs" />
     <Compile Include="ISession.cs" />
