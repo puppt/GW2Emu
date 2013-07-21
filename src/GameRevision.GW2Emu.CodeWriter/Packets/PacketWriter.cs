@@ -72,7 +72,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
         private void WriteClass()
         {
             ProtocolSimpleTypes type = protocol.type;
-            string baseClass = "GenericMessage";
+            string baseClass = "IMessage";
 
             this.writer.WriteClass(this.headerEnum.NamesByHeader[message.header], baseClass);
 
@@ -89,7 +89,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
             if (basicFields != null)
             {
-                this.WriteFields(fields, basicFields);
+                this.WriteFields(fields, basicFields, isPacket);
                 this.writer.WriteLine();
             }
 
@@ -117,8 +117,22 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             return null;
         }
 
-        private void WriteFields(List<Field> fields, IEnumerable<BasicFieldType> basicFields)
+        private void WriteFields(List<Field> fields, IEnumerable<BasicFieldType> basicFields, bool isPacket)
         {
+            if (isPacket)
+            {
+                this.writer.WriteProperty("ushort", "Header");
+                this.writer.WriteInBlock(delegate
+                 {
+                    this.writer.WriteGet();
+                    this.writer.WriteInBlock(delegate
+                    {
+                        this.writer.WriteReturn(message.header);
+                    });
+                });
+                this.writer.WriteLine();
+            }
+
             foreach (BasicFieldType basicField in basicFields)
             {
                 FieldType fieldType = FieldTypeFactory.Create(basicField, this.writer);
@@ -152,27 +166,8 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             }
         }
 
-        private void WriteHeaderProperty()
-        {
-            this.writer.WriteOverridingProperty("ushort", "Header");
-            this.writer.WriteInBlock(delegate
-            {
-                this.writer.WriteGet();
-                this.writer.WriteInBlock(delegate
-                {
-                    this.writer.WriteReturn(message.header);
-                });
-            });
-            this.writer.WriteLine();
-        }
-
         private void WriteMethod(IEnumerable<Field> fields, bool isPacket)
         {
-            if (isPacket)
-            {
-                this.WriteHeaderProperty();
-            }
-
             if (protocol.type.GetPacketDirection() == PacketDirection.Out)
             {
                 WriteSerializer(fields, isPacket);
@@ -216,11 +211,6 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
             this.writer.WriteInBlock(delegate
             {
-                if (isPacket)
-                {
-                    this.writer.WriteMethodCall("base", "Serialize", "serializer");
-                }
-
                 foreach (Field field in fields)
                 {
                     field.WriteSerializer();

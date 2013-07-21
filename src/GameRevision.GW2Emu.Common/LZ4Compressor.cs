@@ -24,12 +24,12 @@ namespace GameRevision.GW2Emu.Common
         {
             byte[] compressed = compressor.Compress(buffer);
 
-            return BinaryBuilder
-                .Start()
-                .Write((short)compressed.Length)
-                .Write((short)buffer.Length)
-                .Write(compressed)
-                .Finish();
+            Serializer serializer = new Serializer();
+            serializer.Write((short)compressed.Length);
+            serializer.Write((short)buffer.Length);
+            serializer.Write(compressed);
+
+            return serializer.GetBytes();
         }
     }
 }

@@ -386,6 +386,8 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets.Fields
 
         public override void WriteSerializer(string fieldName)
         {
+            Serializer.WriteMethodCall(this.Writer, fieldName + ".IsPresent ? (byte) 1 : (byte) 0");
+
             this.Writer.WriteIf(fieldName + ".IsPresent");
             this.Writer.WriteInBlock(() => InnerType.WriteSerializer(fieldName + ".Value"));
         }

@@ -16,14 +16,14 @@ namespace GameRevision.GW2Emu.Common.Cryptography
 
         public static byte[] ToBytes(uint[] uints)
         {
-            return BinaryBuilder
-                .Start()
-                .Write(uints[0])
-                .Write(uints[1])
-                .Write(uints[2])
-                .Write(uints[3])
-                .Write(uints[4])
-                .Finish();
+            Serializer serializer = new Serializer();
+            serializer.Write(uints[0]);
+            serializer.Write(uints[1]);
+            serializer.Write(uints[2]);
+            serializer.Write(uints[3]);
+            serializer.Write(uints[4]);
+
+            return serializer.GetBytes();
         }
 
 

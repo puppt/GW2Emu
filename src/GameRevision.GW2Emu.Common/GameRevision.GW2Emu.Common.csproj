@@ -33,6 +33,7 @@
     <Reference Include="LZ4Sharp">
       <HintPath>..\..\lib\LZ4Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParallelUtils.cs" />
@@ -47,14 +48,12 @@
     <Compile Include="Math\Vector4.cs" />
     <Compile Include="Math\WorldPosition.cs" />
     <Compile Include="UID.cs" />
-    <Compile Include="Serialization\BinaryBuilder.cs" />
     <Compile Include="Events\EventHandler.cs" />
     <Compile Include="Cryptography\DiffieHellman.cs" />
     <Compile Include="Cryptography\Keys.cs" />
     <Compile Include="Cryptography\RC4.cs" />
     <Compile Include="Cryptography\RC4Encryptor.cs" />
     <Compile Include="Messaging\IMessage.cs" />
-    <Compile Include="Messaging\GenericMessage.cs" />
     <Compile Include="LZ4Compressor.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\ClientManager.cs" />
@@ -66,6 +65,9 @@
     <Compile Include="Session\ISessionState.cs" />
     <Compile Include="Session\InvalidState.cs" />
     <Compile Include="Session\GenericSession.cs" />
+    <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="Messaging\MessageFactory.cs" />
+    <Compile Include="Optional.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
