@@ -7,6 +7,7 @@ using GameRevision.GW2Emu.Common.Session;
 
 namespace GameRevision.GW2Emu.LoginServer.Session
 {
+    // TODO: implement me properly
     public class HandshakeState : ISessionState
     {
 
@@ -39,13 +40,13 @@ namespace GameRevision.GW2Emu.LoginServer.Session
                         byte[] xoredRandomBytes = CryptoUtils.XOR(randomBytes, sharedKey); // TODO: Is this unused?!
                         key = hashedRandomBytes;
                         
-                        session.Send(
-                            BinaryBuilder
-                                 .Start()
-                                 .Write((byte)0x01)
-                                 .Write((byte)0x16)
-                                 .Write(key)
-                                 .Finish());
+                        Serializer serializer = new Serializer();
+                        serializer.Write((byte)0x01); // RC4Seed Header
+                        serializer.Write((byte)0x16); // RC4Seed Length
+                        serializer.Write(key); // RC4Key
+
+                        session.Send(serializer.GetBytes());
+
                         break;
 
                     default:
@@ -56,5 +57,8 @@ namespace GameRevision.GW2Emu.LoginServer.Session
 
             return new IMessage[] {};
         }
+
+
+        public byte[] Serialize(ISession session, IMessage message) { return new byte[] {}; }
     }
 }

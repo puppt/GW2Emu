@@ -16,6 +16,19 @@ namespace GameRevision.GW2Emu.Common.Serialization
         }
 
 
+        public bool IsEmpty()
+        {
+            return base.BaseStream.Position >= base.BaseStream.Length -1;
+        }
+
+
+        public byte[] GetRemainder()
+        {
+            //TODO: get the rest of the stream
+            return new byte[] {};
+        }
+
+
         public int ReadVarint()
         {
             bool more = true;

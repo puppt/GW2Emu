@@ -66,8 +66,9 @@
     <Compile Include="Session\InvalidState.cs" />
     <Compile Include="Session\GenericSession.cs" />
     <Compile Include="Serialization\Serializer.cs" />
-    <Compile Include="Messaging\MessageFactory.cs" />
     <Compile Include="Optional.cs" />
+    <Compile Include="Messaging\IMessageFactory.cs" />
+    <Compile Include="Messaging\GenericMessageFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

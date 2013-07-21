@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Reflection;
-using GameRevision.GW2Emu.Core;
-using GameRevision.GW2Emu.Network;
+using GameRevision.GW2Emu.Common;
+using GameRevision.GW2Emu.Common.Network;
 using GameRevision.GW2Emu.LoginServer.Handlers;
 
 //namespace GameRevision.GW2Emu.LoginServer

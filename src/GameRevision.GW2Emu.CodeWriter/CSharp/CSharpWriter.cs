@@ -159,6 +159,11 @@ namespace GameRevision.GW2Emu.CodeWriter.CSharp
             this.writer.WriteLine(Access + " void " + method + "(" + argument + ")");
         }
 
+        public void WriteMethodStub(string method, string argument)
+        {
+            this.writer.WriteLine(Access + " void " + method + "(" + argument + ") {}");
+        }
+
         public void WriteMethod(string type, string method, string argument)
         {
             this.writer.WriteLine(Access + " " + type + " " + method + "(" + argument + ")");
@@ -169,9 +174,9 @@ namespace GameRevision.GW2Emu.CodeWriter.CSharp
             this.writer.WriteLine(Access + " static " + type + " " + method + "(" + argument + ")");
         }
 
-        public void WriteOverridingMethod(string method, string argument)
+        public void WriteOverridingMethod(string access, string type, string method, string argument)
         {
-            this.writer.WriteLine(Access + " override void " + method + "(" + argument + ")");
+            this.writer.WriteLine(access + " override " + type + " " + method + "(" + argument + ")");
         }
 
         public void WriteReturn(string nameOrConst)

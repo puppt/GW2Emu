@@ -8,7 +8,7 @@ namespace GameRevision.GW2Emu.CodeWriter
 
         public static void Main()
         {
-            CodeWriter codeWriter = new CodeWriter(@"Xml\Templates.xml", OutputDirectory);
+            CodeWriter codeWriter = new CodeWriter(@"Xml/Templates.xml", OutputDirectory);
             codeWriter.WriteCode();
 
             Console.WriteLine("Press any key to close the program. . .");

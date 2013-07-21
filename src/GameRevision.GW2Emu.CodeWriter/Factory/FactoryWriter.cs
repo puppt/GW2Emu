@@ -53,13 +53,13 @@ namespace GameRevision.GW2Emu.CodeWriter.Factory
 
         private void WriteClass()
         {
-            this.writer.WriteClass("ClientMessageFactory", "IMessageFactory");
+            this.writer.WriteClass("ClientMessageFactory", "GenericMessageFactory");
             this.writer.WriteInBlock(this.WriteMethod);
         }
 
         private void WriteMethod()
         {
-            this.writer.WriteStaticMethod("ITriggerableMessage", "CreateMessage", "ushort header");
+            this.writer.WriteOverridingMethod("protected", "IMessage", "CreateEmptyMessage", "ushort header");
             this.writer.WriteInBlock(this.WriteSwitch);
         }
 

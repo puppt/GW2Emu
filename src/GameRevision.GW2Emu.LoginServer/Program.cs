@@ -1,5 +1,5 @@
 ﻿using System;
-using GameRevision.GW2Emu.Core;
+using GameRevision.GW2Emu.Common;
 
 namespace GameRevision.GW2Emu.LoginServer
 {

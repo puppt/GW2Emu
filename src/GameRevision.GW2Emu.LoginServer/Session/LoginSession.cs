@@ -20,7 +20,7 @@ namespace GameRevision.GW2Emu.LoginServer.Session
         }
 
 
-        void Trigger(IMessage message)
+        protected override void Trigger(IMessage message)
         {
             aggregator.Trigger(message);
         }

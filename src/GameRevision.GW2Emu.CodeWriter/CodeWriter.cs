@@ -69,7 +69,7 @@ namespace GameRevision.GW2Emu.CodeWriter
             {
                 DateTime date = DateTime.Now;
 
-                string factoryName = protocol.type.GetServerName().ToString().Replace("Server", string.Empty) + "MessageFactory";
+                string factoryName = "ClientMessageFactory";
                 string fileName = this.GetFactoryFilePath(protocol.type, factoryName);
 
                 this.WriteFile(fileName, delegate(CSharpWriter writer)

@@ -1,6 +1,6 @@
 ﻿using System;
-using GameRevision.GW2Emu.Core.Serializers;
-using GameRevision.GW2Emu.Core.Cryptography;
+using GameRevision.GW2Emu.Common.Serialization;
+using GameRevision.GW2Emu.Common.Cryptography;
 
 //namespace GameRevision.GW2Emu.Network.Handshakes
 //{

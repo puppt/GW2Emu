@@ -48,6 +48,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             this.writer.WriteUsing("System.Net");
             this.writer.WriteUsing("GameRevision.GW2Emu.Common");
             this.writer.WriteUsing("GameRevision.GW2Emu.Common.Math");
+            this.writer.WriteUsing("GameRevision.GW2Emu.Common.Messaging");
             this.writer.WriteUsing("GameRevision.GW2Emu.Common.Serialization");
         }
 
@@ -119,20 +120,6 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
         private void WriteFields(List<Field> fields, IEnumerable<BasicFieldType> basicFields, bool isPacket)
         {
-            if (isPacket)
-            {
-                this.writer.WriteProperty("ushort", "Header");
-                this.writer.WriteInBlock(delegate
-                 {
-                    this.writer.WriteGet();
-                    this.writer.WriteInBlock(delegate
-                    {
-                        this.writer.WriteReturn(message.header);
-                    });
-                });
-                this.writer.WriteLine();
-            }
-
             foreach (BasicFieldType basicField in basicFields)
             {
                 FieldType fieldType = FieldTypeFactory.Create(basicField, this.writer);
@@ -166,8 +153,27 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             }
         }
 
+        private void WriteHeaderProperty()
+        {
+            this.writer.WriteProperty("ushort", "Header");
+            this.writer.WriteInBlock(delegate
+            {
+                this.writer.WriteGet();
+                this.writer.WriteInBlock(delegate
+                {
+                    this.writer.WriteReturn(message.header);
+                });
+            });
+            this.writer.WriteLine();
+        }
+
         private void WriteMethod(IEnumerable<Field> fields, bool isPacket)
         {
+            if (isPacket)
+            {
+                this.WriteHeaderProperty();
+            }
+
             if (protocol.type.GetPacketDirection() == PacketDirection.Out)
             {
                 WriteSerializer(fields, isPacket);
@@ -180,14 +186,10 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
         private void WriteDeserializer(IEnumerable<Field> fields, bool isPacket)
         {
-            if (isPacket)
-            {
-                this.writer.WriteOverridingMethod(Deserializer.PacketMethod, Deserializer.Type + " " + Deserializer.Name);
-            }
-            else
-            {
-                this.writer.WriteMethod(Deserializer.PacketMethod, Deserializer.Type + " " + Deserializer.Name);
-            }
+            //mock up method, to implement the interface
+            this.writer.WriteMethodStub(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
+
+            this.writer.WriteMethod(Deserializer.PacketMethod, Deserializer.Type + " " + Deserializer.Name);
 
             this.writer.WriteInBlock(delegate
             {
@@ -200,24 +202,23 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
         private void WriteSerializer(IEnumerable<Field> fields, bool isPacket)
         {
-            if (isPacket)
-            {
-                this.writer.WriteOverridingMethod(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
-            }
-            else
-            {
-                this.writer.WriteMethod(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
-            }
+            this.writer.WriteMethod(Serializer.PacketMethod, Serializer.Type + " " + Serializer.Name);
 
             this.writer.WriteInBlock(delegate
             {
-                // TODO: Add header shit here.
+                if (isPacket)
+                {
+                    Serializer.WriteMethodCall(this.writer, "Header");
+                }
 
                 foreach (Field field in fields)
                 {
                     field.WriteSerializer();
                 }
             });
+
+            //mock up method, to implement the interface
+            this.writer.WriteMethodStub(Deserializer.PacketMethod, Deserializer.Type + " " + Deserializer.Name);
         }
     }
 }
