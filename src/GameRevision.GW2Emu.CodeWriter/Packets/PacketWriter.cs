@@ -211,6 +211,8 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
 
             this.writer.WriteInBlock(delegate
             {
+                // TODO: Add header shit here.
+
                 foreach (Field field in fields)
                 {
                     field.WriteSerializer();

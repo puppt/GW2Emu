@@ -3,6 +3,7 @@ using GameRevision.GW2Emu.CodeWriter.CSharp;
 
 namespace GameRevision.GW2Emu.CodeWriter.Packets.Fields
 {
+    //TODO: Fix write postfixes
     internal abstract class FieldType
     {
         protected CSharpWriter Writer;

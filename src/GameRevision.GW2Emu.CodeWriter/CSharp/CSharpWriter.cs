@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.CodeDom.Compiler;
 
 namespace GameRevision.GW2Emu.CodeWriter.CSharp
