@@ -1,5 +1,4 @@
 ﻿using System;
-using GameRevision.GW2Emu.Common;
 
 namespace GameRevision.GW2Emu.LoginServer
 {
@@ -7,8 +6,18 @@ namespace GameRevision.GW2Emu.LoginServer
     {
         public static void Main()
         {
-//            IServerApp serverApp = new LoginServerApp();
-//            ServerAppExecutor.RunConsole(serverApp);
+            var serverApp = new LoginServerApp();
+
+            // start the server
+            serverApp.Start();
+
+            // add shutdown hook to close & disconnect the server 
+            // gracefully if the application is killed
+            AppDomain.CurrentDomain.ProcessExit += (s, e) => 
+            { 
+                serverApp.Stop();
+                Console.WriteLine("Server is terminating.");
+            };
         }
     }
 }

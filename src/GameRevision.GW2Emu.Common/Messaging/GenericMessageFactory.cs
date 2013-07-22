@@ -7,7 +7,7 @@ namespace GameRevision.GW2Emu.Common.Messaging
     public abstract class GenericMessageFactory : IMessageFactory
     {
 
-        public ICollection<IMessage> CreateMessages(byte[] data)
+        public IEnumerable<IMessage> CreateMessages(byte[] data)
         {
             var deserializer = new Deserializer(data);
 

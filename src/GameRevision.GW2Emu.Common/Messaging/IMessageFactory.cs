@@ -5,7 +5,7 @@ namespace GameRevision.GW2Emu.Common.Messaging
 {
     public interface IMessageFactory
     {
-        ICollection<IMessage> CreateMessages(byte[] data);
+        IEnumerable<IMessage> CreateMessages(byte[] data);
     }
 }
 

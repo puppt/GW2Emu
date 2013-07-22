@@ -50,6 +50,7 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             this.writer.WriteUsing("GameRevision.GW2Emu.Common.Math");
             this.writer.WriteUsing("GameRevision.GW2Emu.Common.Messaging");
             this.writer.WriteUsing("GameRevision.GW2Emu.Common.Serialization");
+            this.writer.WriteUsing("GameRevision.GW2Emu.Common.Session");
         }
 
         private void WriteNamespace()
@@ -167,11 +168,18 @@ namespace GameRevision.GW2Emu.CodeWriter.Packets
             this.writer.WriteLine();
         }
 
+        private void WriteSessionProperty()
+        {
+            this.writer.WriteAutomaticProperty("ISession", "Owner", "", "");
+            this.writer.WriteLine();
+        }
+
         private void WriteMethod(IEnumerable<Field> fields, bool isPacket)
         {
             if (isPacket)
             {
                 this.WriteHeaderProperty();
+                this.WriteSessionProperty();
             }
 
             if (protocol.type.GetPacketDirection() == PacketDirection.Out)

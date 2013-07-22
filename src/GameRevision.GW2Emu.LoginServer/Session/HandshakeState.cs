@@ -4,20 +4,20 @@ using GameRevision.GW2Emu.Common.Serialization;
 using GameRevision.GW2Emu.Common.Cryptography;
 using GameRevision.GW2Emu.Common.Messaging;
 using GameRevision.GW2Emu.Common.Session;
+using GameRevision.GW2Emu.LoginServer.Messages;
 
 namespace GameRevision.GW2Emu.LoginServer.Session
 {
-    // TODO: implement me properly
     public class HandshakeState : ISessionState
     {
 
-        uint version;
-        byte[] key;
+        //private uint clientVersion;
+        private byte[] key;
 
 
-        public IEnumerable<IMessage> Deserialize(ISession session, byte[] buffer, int dataLen)
+        public IEnumerable<IMessage> Deserialize(ISession session, byte[] data)
         {
-            Deserializer deserializer = new Deserializer(buffer);
+            Deserializer deserializer = new Deserializer(data);
 
             while (deserializer.BaseStream.Position < deserializer.BaseStream.Length)
             {
@@ -28,7 +28,7 @@ namespace GameRevision.GW2Emu.LoginServer.Session
                 {
                     case 0x04: // Version
                         deserializer.BaseStream.Position += 2;
-                        version = deserializer.ReadUInt32();
+                        /*this.clientVersion = */deserializer.ReadUInt32();
                         deserializer.BaseStream.Position += 8;
                         break;
 
@@ -37,15 +37,17 @@ namespace GameRevision.GW2Emu.LoginServer.Session
                         byte[] sharedKey = DiffieHellman.GenerateSharedKey(publicKey, Keys.PrivateKey, Keys.Prime);
                         byte[] randomBytes = CryptoUtils.GetRandomBytes();
                         byte[] hashedRandomBytes = CryptoUtils.Hash(randomBytes);
-                        byte[] xoredRandomBytes = CryptoUtils.XOR(randomBytes, sharedKey); // TODO: Is this unused?!
+                        byte[] xoredRandomBytes = CryptoUtils.XOR(randomBytes, sharedKey);
                         key = hashedRandomBytes;
                         
                         Serializer serializer = new Serializer();
                         serializer.Write((byte)0x01); // RC4Seed Header
                         serializer.Write((byte)0x16); // RC4Seed Length
-                        serializer.Write(key); // RC4Key
+                        serializer.Write(xoredRandomBytes); // xored RC4Key
 
                         session.Send(serializer.GetBytes());
+
+                        session.State = prepareNewState();
 
                         break;
 
@@ -55,10 +57,17 @@ namespace GameRevision.GW2Emu.LoginServer.Session
                 }
             }
 
+            // mock up, since we return the byte-encoded messages directly
             return new IMessage[] {};
         }
 
 
         public byte[] Serialize(ISession session, IMessage message) { return new byte[] {}; }
+
+
+        private ConnectedState prepareNewState()
+        {
+            return new ConnectedState(new RC4Encryptor(this.key), new ClientMessageFactory());
+        }
     }
 }

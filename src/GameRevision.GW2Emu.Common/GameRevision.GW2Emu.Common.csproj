@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParallelUtils.cs" />
-    <Compile Include="HandshakeClientDecorator.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventAggregator.cs" />
@@ -69,6 +68,9 @@
     <Compile Include="Optional.cs" />
     <Compile Include="Messaging\IMessageFactory.cs" />
     <Compile Include="Messaging\GenericMessageFactory.cs" />
+    <Compile Include="Session\ConnectedState.cs" />
+    <Compile Include="Events\ClientConnectedEvent.cs" />
+    <Compile Include="Events\ClientDisconnectedEvent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

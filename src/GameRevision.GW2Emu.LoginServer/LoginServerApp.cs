@@ -1,55 +1,55 @@
 ﻿using System;
-using System.Net;
-using System.Reflection;
-using GameRevision.GW2Emu.Common;
+using GameRevision.GW2Emu.Common.Events;
 using GameRevision.GW2Emu.Common.Network;
+using GameRevision.GW2Emu.Common.Session;
 using GameRevision.GW2Emu.LoginServer.Handlers;
+using GameRevision.GW2Emu.LoginServer.Session;
 
-//namespace GameRevision.GW2Emu.LoginServer
-//{
-//    public class LoginServerApp : IServerApp
-//    {
-//        public IEventAggregator EventAggregator { get; private set; }
-//        public INetworkSessionListener SessionListener { get; private set; }
-//        public ConcurrentSessionCollection SessionCollection { get; private set; }
-//
-//        public string Name
-//        {
-//            get
-//            {
-//                return "GW2Emu - Login Server";
-//            }
-//        }
-//
-//        public LoginServerApp()
-//        {
-//            this.EventAggregator = new ConcurrentEventAggregator();
-//            this.SessionCollection = new ConcurrentSessionCollection();
-//            this.SessionListener = new ClientManager(IPAddress.Any, 6112);
-//            this.SessionListener.NetworkSessionCreated += OnNetworkSessionCreated;
-//        }
-//
-//        public void RegisterHandlers()
-//        {
-//            this.EventAggregator.Register(new Login());
-//        }
-//
-//        public void Run()
-//        {
-//            this.SessionListener.Listen();
-//        }
-//
-//        public void Stop()
-//        {
-//            this.SessionListener.Stop();
-//            this.SessionCollection.StopAll();
-//        }
-//
-//        private void OnNetworkSessionCreated(object sender, NewClientEventArgs e)
-//        {
-//            ISession session = new LoginSession(this, e.NetworkSession);
-//            session.Run();
-//            this.SessionCollection.Add(session);
-//        }
-//    }
-//}
+namespace GameRevision.GW2Emu.LoginServer
+{
+    public class LoginServerApp
+    {
+
+        private IEventAggregator eventAggregator;
+        private ClientManager clientManager;
+
+
+        public LoginServerApp()
+        {
+            this.eventAggregator = new EventAggregator();
+            this.clientManager = new ClientManager(6112);
+
+            this.clientManager.OnNewClient += NewClientHandler;
+        }
+
+
+        public void Start()
+        {
+            this.clientManager.Start();
+        }
+
+
+        public void Stop()
+        {
+            this.clientManager.Stop();
+        }
+
+
+        /// <summary>
+        /// New client event handler. This is triggered by the network layer.
+        /// </summary>
+        public void NewClientHandler(object sender, NewClientEventArgs e)
+        {
+            GenericSession session = new LoginSession(e.Client, this.eventAggregator);
+
+            e.Client.OnNewData += session.NewDataHandler;
+            e.Client.OnLostClient += session.LostClientHandler;
+        }
+
+
+        private void RegisterHandlers()
+        {
+            this.eventAggregator.Register(new Login());
+        }
+    }
+}

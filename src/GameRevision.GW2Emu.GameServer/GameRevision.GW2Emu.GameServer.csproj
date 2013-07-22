@@ -31,7 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="Session\GameHandshake.cs" />
     <Compile Include="Messages\ClientMessageFactory.cs" />
     <Compile Include="Messages\CtoS\P001_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P002_UnknownMessage.cs" />
@@ -952,6 +951,9 @@
     <Compile Include="Messages\StoC\P712_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P713_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P714_UnknownMessage.cs" />
+    <Compile Include="Session\HandshakeState.cs" />
+    <Compile Include="Session\GameSession.cs" />
+    <Compile Include="GameServerApp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

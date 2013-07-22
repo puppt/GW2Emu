@@ -6,7 +6,7 @@ namespace GameRevision.GW2Emu.Common.Session
 {
 	public interface ISessionState
 	{
-		IEnumerable<IMessage> Deserialize(ISession session, byte[] buffer, int dataLen);
+		IEnumerable<IMessage> Deserialize(ISession session, byte[] data);
 
         byte[] Serialize(ISession session, IMessage message);
 	}
