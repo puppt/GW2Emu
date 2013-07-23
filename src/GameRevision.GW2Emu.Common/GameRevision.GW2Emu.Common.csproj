@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>GameRevision.GW2Emu.Common</RootNamespace>
+    <AssemblyName>GameRevision.GW2Emu.Common</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Numerics" />
+    <Reference Include="Mono.Security" />
+    <Reference Include="System" />
+    <Reference Include="LZ4Sharp">
+      <HintPath>..\..\lib\LZ4Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ParallelUtils.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\IRegisterable.cs" />
+    <Compile Include="Serialization\Deserializer.cs" />
+    <Compile Include="Math\Vector2.cs" />
+    <Compile Include="Math\Vector3.cs" />
+    <Compile Include="Math\Vector4.cs" />
+    <Compile Include="Math\WorldPosition.cs" />
+    <Compile Include="UID.cs" />
+    <Compile Include="Events\EventHandler.cs" />
+    <Compile Include="Cryptography\DiffieHellman.cs" />
+    <Compile Include="Cryptography\Keys.cs" />
+    <Compile Include="Cryptography\RC4.cs" />
+    <Compile Include="Cryptography\RC4Encryptor.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
+    <Compile Include="LZ4Compressor.cs" />
+    <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\ClientManager.cs" />
+    <Compile Include="Network\LostClientEventArgs.cs" />
+    <Compile Include="Network\NewClientEventArgs.cs" />
+    <Compile Include="Network\NewDataEventArgs.cs" />
+    <Compile Include="Cryptography\CryptoUtils.cs" />
+    <Compile Include="Session\ISession.cs" />
+    <Compile Include="Session\ISessionState.cs" />
+    <Compile Include="Session\InvalidState.cs" />
+    <Compile Include="Session\GenericSession.cs" />
+    <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="Optional.cs" />
+    <Compile Include="Messaging\IMessageFactory.cs" />
+    <Compile Include="Messaging\GenericMessageFactory.cs" />
+    <Compile Include="Session\ConnectedState.cs" />
+    <Compile Include="Events\ClientConnectedEvent.cs" />
+    <Compile Include="Events\ClientDisconnectedEvent.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Events\" />
+    <Folder Include="Serialization\" />
+    <Folder Include="Math\" />
+    <Folder Include="Messaging\" />
+    <Folder Include="Network\" />
+    <Folder Include="Session\" />
+  </ItemGroup>
+</Project>

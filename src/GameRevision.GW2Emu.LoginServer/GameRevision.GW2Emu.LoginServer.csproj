@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{925E3982-B8B0-4EF9-9842-722FD0B2940F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GameRevision.GW2Emu.LoginServer</RootNamespace>
+    <AssemblyName>GameRevision.GW2Emu.LoginServer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Handlers\Login.cs" />
+    <Compile Include="LoginServerApp.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Session\LoginSession.cs" />
+    <Compile Include="Session\HandshakeState.cs" />
+    <Compile Include="Messages\ClientMessageFactory.cs" />
+    <Compile Include="Messages\CtoS\P01_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P02_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P03_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P04_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P05_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P10_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P11_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P12_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P14_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P15_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P16_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P20_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P21_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P22_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P23_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P24_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P25_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P26_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P29_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P34_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P35_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P36_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P01_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P02_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P03_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P04_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P07_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P08_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P10_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P13_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P16_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P17_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P18_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P20_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P23_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P24_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P25_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P26_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P27_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P28_UnknownMessage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Messages\" />
+    <Folder Include="Session\" />
+    <Folder Include="Messages\CtoS\" />
+    <Folder Include="Messages\StoC\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
+      <Project>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</Project>
+      <Name>GameRevision.GW2Emu.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
