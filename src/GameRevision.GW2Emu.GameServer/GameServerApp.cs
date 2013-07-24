@@ -10,13 +10,13 @@ namespace GameRevision.GW2Emu.GameServer
     {
 
         private IEventAggregator eventAggregator;
-        private ClientManager clientManager;
+        private ClientListener clientManager;
 
 
         public GameServerApp()
         {
             this.eventAggregator = new EventAggregator();
-            this.clientManager = new ClientManager(6112);
+            this.clientManager = new ClientListener(6112);
 
             this.clientManager.OnNewClient += NewClientHandler;
         }
@@ -37,7 +37,7 @@ namespace GameRevision.GW2Emu.GameServer
         /// <summary>
         /// New client event handler. This is triggered by the network layer.
         /// </summary>
-        public void NewClientHandler(object sender, NewClientEventArgs e)
+        public void NewClientHandler(object sender, ClientConnectedEventArgs e)
         {
             GenericSession session = new GameSession(e.Client, this.eventAggregator);
 

@@ -25,7 +25,7 @@ namespace GameRevision.GW2Emu.Common.Tests
             // its new-client event. we will check if we actually get
             // the new client later on.
             // finally start the manager.
-            var manager = new ClientManager(9999);
+            var manager = new ClientListener(9999);
             manager.OnNewClient += OnNewClient;
             manager.Start();
 
@@ -90,7 +90,7 @@ namespace GameRevision.GW2Emu.Common.Tests
         }
 
 
-        private void OnNewClient(Object sender, NewClientEventArgs e) 
+        private void OnNewClient(Object sender, ClientConnectedEventArgs e) 
         { 
             newClient = true;
 
@@ -101,7 +101,7 @@ namespace GameRevision.GW2Emu.Common.Tests
         }
 
 
-        private void OnNewData(Object sender, NewDataEventArgs e) 
+        private void OnNewData(Object sender, DataReceivedEventArgs e) 
         { 
             newData = true; 
 
@@ -110,7 +110,7 @@ namespace GameRevision.GW2Emu.Common.Tests
         }
 
         
-        private void OnLostClient(Object sender, LostClientEventArgs e) 
+        private void OnLostClient(Object sender, ClientDisconnectedEventArgs e) 
         { 
             lostClient = true; 
         }

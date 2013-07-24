@@ -1,89 +1,94 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace GameRevision.GW2Emu.Common.Network
 {
     public sealed class Client
     {
-        public event EventHandler<NewDataEventArgs> OnNewData;
-        public event EventHandler<LostClientEventArgs> OnLostClient;
+        public event EventHandler<DataReceivedEventArgs> DataReceived;
+        public event EventHandler<ClientDisconnectedEventArgs> Disconnected;
 
         public IPEndPoint RemoteEndPoint { get; private set; }
         public IPEndPoint LocalEndPoint { get; private set; }
 
         private Socket socket;
-        private byte[] buffer = new byte[255];
+        private volatile bool running;
 
-
-        public Client(ClientManager manager, Socket socket)
+        public Client(Socket socket)
         {
             this.socket = socket;
 
-            RemoteEndPoint = (IPEndPoint)socket.RemoteEndPoint;
-            LocalEndPoint = (IPEndPoint)socket.LocalEndPoint;
-
-            // kick this when the server is going down
-            manager.OnShutdown += Kick;
+            this.RemoteEndPoint = (IPEndPoint)this.socket.RemoteEndPoint;
+            this.LocalEndPoint = (IPEndPoint)this.socket.LocalEndPoint;
         }
 
+        private bool IsRunning()
+        {
+            return this.running;
+        }
+
+        private bool IsConnected()
+        {
+            return (this.socket.Connected || socket.Poll(1, SelectMode.SelectRead | SelectMode.SelectWrite));
+        }
+
+        private void FreeWaitingThreads()
+        {
+            Thread.Sleep(0);
+        }
+
+        private void OnDataReceived(byte[] buffer, int bytesRead)
+        {
+            if (this.DataReceived != null)
+            {
+                this.DataReceived(this, new DataReceivedEventArgs(buffer));
+            }
+        }
+
+        private void OnDisconnected()
+        {
+            if (this.Disconnected != null)
+            {
+                this.Disconnected(this, new ClientDisconnectedEventArgs());
+            }
+        }
+
+        public void Run()
+        {
+            this.running = true;
+
+            ParallelUtils.While(this.IsRunning, delegate
+            {
+                if (this.IsConnected())
+                {
+                    if (this.socket.Available > 0)
+                    {
+                        byte[] buffer = new byte[this.socket.Available];
+                        int bytesRead = this.socket.Receive(buffer);
+                        this.OnDataReceived(buffer, bytesRead);
+                    }
+                }
+                else
+                {
+                    this.Disconnect();
+                }
+
+                //this.FreeWaitingThreads();
+            });
+        }
 
         public void Send(byte[] data)
         {
-            socket.Send(data);
+            this.socket.Send(data);
         }
 
-
-        public void Kick()
+        public void Disconnect()
         {
-            socket.Close();
-            OnLostClient(this, new LostClientEventArgs(this));
-        }
-
-
-        internal void StartRecieve()
-        {
-            socket.BeginReceive(
-                buffer, 0, buffer.Length, 
-                SocketFlags.None, 
-                new AsyncCallback(ReceiveCallback), 
-                null);
-        }
-
-
-        private void ReceiveCallback(IAsyncResult result)
-        {
-            try
-            {
-                // recieve the data, do a failcheck
-                int dataLen = socket.EndReceive(result);
-
-                if (dataLen == 0)
-                {
-                    Kick();
-                    return;
-                }
-
-                // trigger the event
-                OnNewData(this, new NewDataEventArgs(this, buffer, dataLen));
-
-                // restart recieve
-                socket.BeginReceive(
-                    buffer, 0, buffer.Length, 
-                    SocketFlags.None, 
-                    new AsyncCallback(ReceiveCallback), 
-                    null);
-            }
-            catch (SocketException exc)
-            {
-                Kick();
-                Console.WriteLine("Socket exception: " + exc.SocketErrorCode);
-            }
-            catch (Exception exc)
-            {
-                Kick();
-                Console.WriteLine("Exception: " + exc);
-            }
+            this.running = false;
+            this.socket.Close();
+            this.OnDisconnected();
         }
     }
 }
