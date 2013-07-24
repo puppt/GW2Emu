@@ -68,6 +68,7 @@ namespace GameRevision.GW2Emu.Common.Session
 
             foreach (IMessage message in messages) 
             {
+                message.Session = this;
                 this.aggregator.Trigger(message);
             }
         }

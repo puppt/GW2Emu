@@ -9,7 +9,7 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
 {
     public class Login : IRegisterable
     {
-        public void RegisterMeWith(IEventAggregator aggregator)
+        public void Register(IEventAggregator aggregator)
         {
             aggregator.Register<CtoS.P01_UnknownMessage>(this.OnPingServer);
             aggregator.Register<CtoS.P02_UnknownMessage>(this.OnComputerUserName);

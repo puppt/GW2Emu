@@ -7,30 +7,25 @@ namespace GameRevision.GW2Emu.Common.Events
 {
     public class EventAggregator : IEventAggregator
     {
-
         IDictionary<Type, IList<EventHandler<IEvent>>> handlers;
-
 
         public EventAggregator()
         {
-            handlers = new ConcurrentDictionary<Type, IList<EventHandler<IEvent>>>();
+            this.handlers = new ConcurrentDictionary<Type, IList<EventHandler<IEvent>>>();
         }
-
 
         public void Register(IRegisterable registerable)
         {
-            registerable.RegisterMeWith(this);
+            registerable.Register(this);
         }
-
 
         public void RegisterAll(IEnumerable<IRegisterable> registerables)
         {
             foreach (var registerable in registerables) 
             {
-                Register(registerable);
+                this.Register(registerable);
             }
         }
-
 
         public void Register<T>(EventHandler<T> handler) where T : IEvent
         {
@@ -39,11 +34,13 @@ namespace GameRevision.GW2Emu.Common.Events
                 handlers[typeof(T)] = new List<EventHandler<IEvent>>();
             }
 
-            var handlerList = handlers[typeof(T)];
+            IList<EventHandler<IEvent>> handlerList = handlers[typeof(T)];
 
-            handlerList.Add(evt => handler((T)evt));
+            handlerList.Add(delegate(IEvent evt)
+            {
+                handler((T)evt);
+            });
         }
-
 
         public void Trigger(IEvent evt)
         {
@@ -51,7 +48,7 @@ namespace GameRevision.GW2Emu.Common.Events
 
             if (handlers.TryGetValue(evt.GetType(), out handlerList))
             {
-                Parallel.ForEach (handlerList, handler =>
+                Parallel.ForEach(handlerList, delegate(EventHandler<IEvent> handler)
                 {
                     handler.Invoke(evt);
                 });

@@ -11,18 +11,21 @@ namespace GameRevision.GW2Emu.GameServer
     {
         private IEventAggregator eventAggregator;
         private ClientListener clientListener;
+        private ConcurrentClientCollection clientCollection;
 
         public GameServerApp()
         {
             this.eventAggregator = new EventAggregator();
-            this.clientListener = new ClientListener(IPAddress.Any, 6112);
 
-            this.clientListener.ClientConnected += this.OnClientConnected;
+            this.clientListener = new ClientListener(IPAddress.Any, 6112);
+            this.clientListener.ClientConnected += OnClientConnected;
+
+            this.clientCollection = new ConcurrentClientCollection();
         }
 
         public void RegisterHandlers()
         {
-
+            // TODO: implement game server handlers
         }
 
         public void Start()
@@ -33,11 +36,15 @@ namespace GameRevision.GW2Emu.GameServer
         public void Stop()
         {
             this.clientListener.Stop();
+            this.clientCollection.StopAll();
         }
 
-        public void OnClientConnected(object sender, ClientConnectedEventArgs e)
+        private void OnClientConnected(object sender, ClientConnectedEventArgs e)
         {
+            this.clientCollection.Add(e.Client);
+
             GenericSession session = new GameSession(e.Client, this.eventAggregator);
+            session.Start();
         }
     }
 }

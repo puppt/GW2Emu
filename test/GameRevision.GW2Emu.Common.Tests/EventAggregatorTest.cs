@@ -84,7 +84,7 @@ namespace GameRevision.GW2Emu.Tests.Common.Events
         }
 
 
-        public void RegisterMeWith(IEventAggregator aggregator)
+        public void Register(IEventAggregator aggregator)
         {
             aggregator.Register<Event1>(OnEvent1);
             aggregator.Register<Event2>(OnEvent2);

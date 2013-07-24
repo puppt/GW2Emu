@@ -38,6 +38,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network\ConcurrentClientCollection.cs" />
     <Compile Include="Handshake.cs" />
     <Compile Include="Messaging\GenericMessage.cs" />
     <Compile Include="ParallelUtils.cs" />

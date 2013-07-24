@@ -4,6 +4,6 @@ namespace GameRevision.GW2Emu.Common.Events
 {
     public interface IRegisterable
     {
-        void RegisterMeWith(IEventAggregator aggregator);
+        void Register(IEventAggregator aggregator);
     }
 }
