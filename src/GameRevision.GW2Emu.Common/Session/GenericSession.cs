@@ -45,9 +45,9 @@ namespace GameRevision.GW2Emu.Common.Session
 
         public void Send(byte[] buffer)
         {
-            byte[] encrypted = this.encryptor.Encrypt(buffer);
-            byte[] compressed = this.compressor.Compress(encrypted);
-            this.client.Send(compressed);
+            byte[] compressed = this.compressor.Compress(buffer);
+            byte[] encrypted = this.encryptor.Encrypt(compressed);
+            this.client.Send(encrypted);
         }
 
         public void Start()
