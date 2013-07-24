@@ -9,7 +9,6 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
 {
     public class Login : IRegisterable
     {
-
         public void RegisterMeWith(IEventAggregator aggregator)
         {
             aggregator.Register<CtoS.P01_UnknownMessage>(this.OnPingServer);
@@ -24,7 +23,6 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
             aggregator.Register<CtoS.P22_UnknownMessage>(this.OnCharacterSelect);
             aggregator.Register<CtoS.P20_UnknownMessage>(this.OnCharacterDelete); 
         }
-
 
         private void OnPingServer(CtoS.P01_UnknownMessage evt)
         {
@@ -124,10 +122,12 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
         }
 
         private void OnMessage04(CtoS.P04_UnknownMessage evt)
-        { }
+        {
+        }
 
         private void OnMessage34(CtoS.P34_UnknownMessage evt)
-        { }
+        {
+        }
 
         private void OnMessage12(CtoS.P12_UnknownMessage evt)
         {
@@ -199,6 +199,7 @@ namespace GameRevision.GW2Emu.LoginServer.Handlers
         }
 
         private void OnCharacterDelete(CtoS.P20_UnknownMessage evt)
-        { }
+        {
+        }
     }
 }

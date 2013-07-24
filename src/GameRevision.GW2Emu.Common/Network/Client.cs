@@ -36,14 +36,14 @@ namespace GameRevision.GW2Emu.Common.Network
 
         private void FreeWaitingThreads()
         {
-            Thread.Sleep(0);
+            Thread.Sleep(1);
         }
 
-        private void OnDataReceived(byte[] buffer, int bytesRead)
+        private void OnDataReceived(byte[] data)
         {
             if (this.DataReceived != null)
             {
-                this.DataReceived(this, new DataReceivedEventArgs(buffer));
+                this.DataReceived(this, new DataReceivedEventArgs(data));
             }
         }
 
@@ -65,9 +65,12 @@ namespace GameRevision.GW2Emu.Common.Network
                 {
                     if (this.socket.Available > 0)
                     {
+                        // receive data from the socket
                         byte[] buffer = new byte[this.socket.Available];
-                        int bytesRead = this.socket.Receive(buffer);
-                        this.OnDataReceived(buffer, bytesRead);
+                        this.socket.Receive(buffer);
+
+                        // raise the event
+                        this.OnDataReceived(buffer);
                     }
                 }
                 else
@@ -75,7 +78,7 @@ namespace GameRevision.GW2Emu.Common.Network
                     this.Disconnect();
                 }
 
-                //this.FreeWaitingThreads();
+                this.FreeWaitingThreads();
             });
         }
 
@@ -87,6 +90,7 @@ namespace GameRevision.GW2Emu.Common.Network
         public void Disconnect()
         {
             this.running = false;
+
             this.socket.Close();
             this.OnDisconnected();
         }

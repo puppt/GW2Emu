@@ -38,6 +38,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handshake.cs" />
+    <Compile Include="Messaging\GenericMessage.cs" />
     <Compile Include="ParallelUtils.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\IEvent.cs" />
@@ -63,14 +65,11 @@
     <Compile Include="Network\DataReceivedEventArgs.cs" />
     <Compile Include="Cryptography\CryptoUtils.cs" />
     <Compile Include="Session\ISession.cs" />
-    <Compile Include="Session\ISessionState.cs" />
-    <Compile Include="Session\InvalidState.cs" />
     <Compile Include="Session\GenericSession.cs" />
     <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="Optional.cs" />
     <Compile Include="Messaging\IMessageFactory.cs" />
     <Compile Include="Messaging\GenericMessageFactory.cs" />
-    <Compile Include="Session\ConnectedState.cs" />
     <Compile Include="Events\ClientConnectedEvent.cs" />
     <Compile Include="Events\ClientDisconnectedEvent.cs" />
   </ItemGroup>

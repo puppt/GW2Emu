@@ -8,7 +8,7 @@ namespace GameRevision.GW2Emu.Common.Messaging
     public interface IMessage : IEvent
     {
         ushort Header { get; }
-        ISession Owner { get; set; }
+        ISession Session { get; set; }
 
         void Serialize(Serializer serializer);
         void Deserialize(Deserializer deserializer);

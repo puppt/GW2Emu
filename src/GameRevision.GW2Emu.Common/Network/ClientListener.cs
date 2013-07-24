@@ -35,7 +35,7 @@ namespace GameRevision.GW2Emu.Common.Network
 
         private void FreeWaitingThreads()
         {
-            Thread.Sleep(0);
+            Thread.Sleep(1);
         }
 
         private void OnClientConnected(Client client)
@@ -59,7 +59,7 @@ namespace GameRevision.GW2Emu.Common.Network
                     this.OnClientConnected(new Client(this.socket.Accept()));
                 }
 
-                //this.FreeWaitingThreads();
+                this.FreeWaitingThreads();
             });
         }
 

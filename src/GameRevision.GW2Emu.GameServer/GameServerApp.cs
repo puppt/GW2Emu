@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using GameRevision.GW2Emu.Common.Events;
 using GameRevision.GW2Emu.Common.Network;
 using GameRevision.GW2Emu.Common.Session;
@@ -8,47 +9,35 @@ namespace GameRevision.GW2Emu.GameServer
 {
     public class GameServerApp
     {
-
         private IEventAggregator eventAggregator;
-        private ClientListener clientManager;
-
+        private ClientListener clientListener;
 
         public GameServerApp()
         {
             this.eventAggregator = new EventAggregator();
-            this.clientManager = new ClientListener(6112);
+            this.clientListener = new ClientListener(IPAddress.Any, 6112);
 
-            this.clientManager.OnNewClient += NewClientHandler;
+            this.clientListener.ClientConnected += this.OnClientConnected;
         }
 
+        public void RegisterHandlers()
+        {
+
+        }
 
         public void Start()
         {
-            this.clientManager.Start();
+            this.clientListener.Listen();
         }
-
 
         public void Stop()
         {
-            this.clientManager.Stop();
+            this.clientListener.Stop();
         }
 
-
-        /// <summary>
-        /// New client event handler. This is triggered by the network layer.
-        /// </summary>
-        public void NewClientHandler(object sender, ClientConnectedEventArgs e)
+        public void OnClientConnected(object sender, ClientConnectedEventArgs e)
         {
             GenericSession session = new GameSession(e.Client, this.eventAggregator);
-
-            e.Client.OnNewData += session.NewDataHandler;
-            e.Client.OnLostClient += session.LostClientHandler;
-        }
-
-
-        private void RegisterHandlers()
-        {
-            // add the handlers here
         }
     }
 }
