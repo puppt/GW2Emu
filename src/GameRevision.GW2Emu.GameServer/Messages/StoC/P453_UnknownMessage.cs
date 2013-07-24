@@ -23,36 +23,38 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
         {
             public string Unknown3;
             public int Unknown4;
-            public struct Struct5
+            public int Unknown5;
+            public struct Struct6
             {
-                public int Unknown6;
-                public byte Unknown7;
-                public string Unknown8;
-                public Vector2 Unknown9;
+                public int Unknown7;
+                public byte Unknown8;
+                public string Unknown9;
+                public Vector2 Unknown10;
                 
                 public void Serialize(Serializer serializer)
                 {
-                    serializer.WriteVarint(this.Unknown6);
-                    serializer.Write(this.Unknown7);
-                    serializer.WriteUtf16String(this.Unknown8);
-                    serializer.Write(this.Unknown9);
+                    serializer.WriteVarint(this.Unknown7);
+                    serializer.Write(this.Unknown8);
+                    serializer.WriteUtf16String(this.Unknown9);
+                    serializer.Write(this.Unknown10);
                 }
             }
-            public Struct5[] Unknown10;
+            public Struct6[] Unknown11;
             
             public void Serialize(Serializer serializer)
             {
                 serializer.WriteUtf16String(this.Unknown3);
                 serializer.WriteVarint(this.Unknown4);
-                serializer.Write((byte)Unknown10.Length);
-                for (int i = 0; i < Unknown10.Length; i++)
+                serializer.WriteVarint(this.Unknown5);
+                serializer.Write((byte)Unknown11.Length);
+                for (int i = 0; i < Unknown11.Length; i++)
                 {
-                    Unknown10[i].Serialize(serializer);
+                    Unknown11[i].Serialize(serializer);
                 }
             }
         }
-        public Struct2[] Unknown11;
-        public short[] Unknown12;
+        public Struct2[] Unknown12;
+        public short[] Unknown13;
         
         public override ushort Header
         {
@@ -67,15 +69,15 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
             serializer.Write(Header);
             serializer.WriteVarint(this.Unknown0);
             serializer.WriteVarint(this.Unknown1);
-            serializer.Write((byte)Unknown11.Length);
-            for (int i = 0; i < Unknown11.Length; i++)
-            {
-                Unknown11[i].Serialize(serializer);
-            }
             serializer.Write((byte)Unknown12.Length);
             for (int i = 0; i < Unknown12.Length; i++)
             {
-                serializer.Write(Unknown12[i]);
+                Unknown12[i].Serialize(serializer);
+            }
+            serializer.Write((byte)Unknown13.Length);
+            for (int i = 0; i < Unknown13.Length; i++)
+            {
+                serializer.Write(Unknown13[i]);
             }
         }
     }

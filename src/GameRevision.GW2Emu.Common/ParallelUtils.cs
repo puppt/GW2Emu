@@ -10,13 +10,19 @@ namespace GameRevision.GW2Emu.Common
     public class ParallelUtils
     {
         public static void While(Func<bool> condition, Action body) 
-        { 
-            Parallel.ForEach(IterateUntilFalse(condition), (noparama) => body()); 
+        {
+            Parallel.ForEach(IterateUntilFalse(condition), new Action<bool>(delegate
+            {
+                body.Invoke();
+            })); 
         }
 
         private static IEnumerable<bool> IterateUntilFalse(Func<bool> condition) 
-        { 
-            while (condition()) yield return true; 
+        {
+            while (condition())
+            {
+                yield return true;
+            }
         }
     }
 }

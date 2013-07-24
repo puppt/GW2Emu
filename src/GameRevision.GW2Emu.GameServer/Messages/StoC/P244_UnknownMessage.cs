@@ -37,30 +37,31 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
         }
         public Struct7[] Unknown10;
         public Optional<int> Unknown11;
-        public Optional<byte> Unknown12;
+        public Optional<int> Unknown12;
         public Optional<byte> Unknown13;
-        public Optional<int> Unknown14;
-        public Optional<byte> Unknown15;
-        public struct Struct16
+        public Optional<byte> Unknown14;
+        public Optional<int> Unknown15;
+        public Optional<byte> Unknown16;
+        public struct Struct17
         {
-            public UID Unknown17;
-            public byte Unknown18;
-            public int Unknown19;
+            public UID Unknown18;
+            public byte Unknown19;
             public int Unknown20;
-            public long Unknown21;
+            public int Unknown21;
+            public long Unknown22;
             
             public void Serialize(Serializer serializer)
             {
-                serializer.Write(this.Unknown17);
                 serializer.Write(this.Unknown18);
-                serializer.WriteVarint(this.Unknown19);
+                serializer.Write(this.Unknown19);
                 serializer.WriteVarint(this.Unknown20);
-                serializer.Write(this.Unknown21);
+                serializer.WriteVarint(this.Unknown21);
+                serializer.Write(this.Unknown22);
             }
         }
-        public Optional<Struct16> Unknown22;
-        public Optional<int> Unknown23;
+        public Optional<Struct17> Unknown23;
         public Optional<int> Unknown24;
+        public Optional<int> Unknown25;
         
         public override ushort Header
         {
@@ -93,7 +94,7 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
             serializer.Write(this.Unknown12.IsPresent ? (byte) 1 : (byte) 0);
             if (this.Unknown12.IsPresent)
             {
-                serializer.Write(this.Unknown12.Value);
+                serializer.WriteVarint(this.Unknown12.Value);
             }
             serializer.Write(this.Unknown13.IsPresent ? (byte) 1 : (byte) 0);
             if (this.Unknown13.IsPresent)
@@ -103,27 +104,32 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
             serializer.Write(this.Unknown14.IsPresent ? (byte) 1 : (byte) 0);
             if (this.Unknown14.IsPresent)
             {
-                serializer.WriteVarint(this.Unknown14.Value);
+                serializer.Write(this.Unknown14.Value);
             }
             serializer.Write(this.Unknown15.IsPresent ? (byte) 1 : (byte) 0);
             if (this.Unknown15.IsPresent)
             {
-                serializer.Write(this.Unknown15.Value);
+                serializer.WriteVarint(this.Unknown15.Value);
             }
-            serializer.Write(this.Unknown22.IsPresent ? (byte) 1 : (byte) 0);
-            if (this.Unknown22.IsPresent)
+            serializer.Write(this.Unknown16.IsPresent ? (byte) 1 : (byte) 0);
+            if (this.Unknown16.IsPresent)
             {
-                this.Unknown22.Value.Serialize(serializer);
+                serializer.Write(this.Unknown16.Value);
             }
             serializer.Write(this.Unknown23.IsPresent ? (byte) 1 : (byte) 0);
             if (this.Unknown23.IsPresent)
             {
-                serializer.WriteVarint(this.Unknown23.Value);
+                this.Unknown23.Value.Serialize(serializer);
             }
             serializer.Write(this.Unknown24.IsPresent ? (byte) 1 : (byte) 0);
             if (this.Unknown24.IsPresent)
             {
                 serializer.WriteVarint(this.Unknown24.Value);
+            }
+            serializer.Write(this.Unknown25.IsPresent ? (byte) 1 : (byte) 0);
+            if (this.Unknown25.IsPresent)
+            {
+                serializer.WriteVarint(this.Unknown25.Value);
             }
         }
     }

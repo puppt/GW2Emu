@@ -461,6 +461,10 @@ namespace GameRevision.GW2Emu.GameServer.Messages
                     return new P224_UnknownMessage();
                 case 225:
                     return new P225_UnknownMessage();
+                case 226:
+                    return new P226_UnknownMessage();
+                case 227:
+                    return new P227_UnknownMessage();
                 default:
                     throw new NotImplementedException();
             }

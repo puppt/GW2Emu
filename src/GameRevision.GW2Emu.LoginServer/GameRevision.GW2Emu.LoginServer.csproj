@@ -52,9 +52,6 @@
   <ItemGroup>
     <Compile Include="Handlers\Login.cs" />
     <Compile Include="LoginServerApp.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Session\LoginHandshake.cs" />
-    <Compile Include="Session\LoginSession.cs" />
     <Compile Include="Messages\ClientMessageFactory.cs" />
     <Compile Include="Messages\CtoS\P01_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P02_UnknownMessage.cs" />
@@ -86,6 +83,7 @@
     <Compile Include="Messages\StoC\P08_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P10_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P13_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P15_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P16_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P17_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P18_UnknownMessage.cs" />
@@ -96,6 +94,9 @@
     <Compile Include="Messages\StoC\P26_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P27_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P28_UnknownMessage.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Session\LoginHandshake.cs" />
+    <Compile Include="Session\LoginSession.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -18,7 +18,7 @@ namespace GameRevision.GW2Emu.LoginServer
         {
             this.eventAggregator = new EventAggregator();
 
-            this.clientListener = new ClientListener(IPAddress.Any, 6112);
+            this.clientListener = new ClientListener(IPAddress.Any, 6110);
             this.clientListener.ClientConnected += OnClientConnected;
 
             this.clientCollection = new ConcurrentClientCollection();

@@ -17,9 +17,9 @@ namespace GameRevision.GW2Emu.LoginServer.Session
         {
             if (length == 0x04)
             {
-                deserializer.BaseStream.Position += 2;
+                deserializer.AppendPosition(2);
                 this.ClientVersion = deserializer.ReadUInt32();
-                deserializer.BaseStream.Position += 8;
+                deserializer.AppendPosition(8);
             }
         }
     }

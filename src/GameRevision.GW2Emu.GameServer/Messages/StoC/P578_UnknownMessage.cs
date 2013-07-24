@@ -20,12 +20,13 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
         public byte Unknown0;
         public byte Unknown1;
         public int Unknown2;
-        public float Unknown3;
-        public int Unknown4;
-        public WorldPosition Unknown5;
-        public string Unknown6;
+        public int Unknown3;
+        public float Unknown4;
+        public int Unknown5;
+        public WorldPosition Unknown6;
         public string Unknown7;
-        public int Unknown8;
+        public string Unknown8;
+        public int Unknown9;
         
         public override ushort Header
         {
@@ -41,12 +42,13 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
             serializer.Write(this.Unknown0);
             serializer.Write(this.Unknown1);
             serializer.WriteVarint(this.Unknown2);
-            serializer.Write(this.Unknown3);
-            serializer.WriteVarint(this.Unknown4);
-            serializer.Write(this.Unknown5);
-            serializer.WriteUtf16String(this.Unknown6);
+            serializer.WriteVarint(this.Unknown3);
+            serializer.Write(this.Unknown4);
+            serializer.WriteVarint(this.Unknown5);
+            serializer.Write(this.Unknown6);
             serializer.WriteUtf16String(this.Unknown7);
-            serializer.WriteVarint(this.Unknown8);
+            serializer.WriteUtf16String(this.Unknown8);
+            serializer.WriteVarint(this.Unknown9);
         }
     }
 }

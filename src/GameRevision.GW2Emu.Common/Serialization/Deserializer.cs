@@ -22,12 +22,10 @@ namespace GameRevision.GW2Emu.Common.Serialization
             }
         }
 
-        /*
-        public bool IsEmpty()
+        public void AppendPosition(int offset)
         {
-            return base.BaseStream.Position >= base.BaseStream.Length -1;
+            this.BaseStream.Position += offset;
         }
-        */
 
         public int ReadVarint()
         {

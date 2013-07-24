@@ -70,6 +70,7 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
         public Struct14[] Unknown25;
         public byte Unknown26;
         public byte Unknown27;
+        public byte Unknown28;
         
         public override ushort Header
         {
@@ -107,6 +108,7 @@ namespace GameRevision.GW2Emu.GameServer.Messages.StoC
             }
             serializer.Write(this.Unknown26);
             serializer.Write(this.Unknown27);
+            serializer.Write(this.Unknown28);
         }
     }
 }

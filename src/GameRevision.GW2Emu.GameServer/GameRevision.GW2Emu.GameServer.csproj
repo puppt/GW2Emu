@@ -30,7 +30,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Messages\ClientMessageFactory.cs" />
     <Compile Include="Messages\CtoS\P001_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P002_UnknownMessage.cs" />
@@ -255,6 +254,8 @@
     <Compile Include="Messages\CtoS\P223_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P224_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P225_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P226_UnknownMessage.cs" />
+    <Compile Include="Messages\CtoS\P227_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P001_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P002_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P003_UnknownMessage.cs" />
@@ -951,6 +952,11 @@
     <Compile Include="Messages\StoC\P712_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P713_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P714_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P715_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P716_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P717_UnknownMessage.cs" />
+    <Compile Include="Messages\StoC\P718_UnknownMessage.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Session\GameHandshake.cs" />
     <Compile Include="Session\GameSession.cs" />
     <Compile Include="GameServerApp.cs" />
