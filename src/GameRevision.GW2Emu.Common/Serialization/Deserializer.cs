@@ -1,33 +1,33 @@
 ﻿using System;
 using System.IO;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Collections.Generic;
 using GameRevision.GW2Emu.Common.Math;
-using System.Net;
-using System.Net.Sockets;
 
 namespace GameRevision.GW2Emu.Common.Serialization
 {
     public class Deserializer : BinaryReader
     {
-
         public Deserializer(byte[] bytes) : base(new MemoryStream(bytes))
         {
         }
 
+        public bool EndOfStream
+        {
+            get
+            {
+                return this.BaseStream.Position >= this.BaseStream.Length;
+            }
+        }
 
+        /*
         public bool IsEmpty()
         {
             return base.BaseStream.Position >= base.BaseStream.Length -1;
         }
-
-
-        public byte[] GetRemainder()
-        {
-            //TODO: get the rest of the stream
-            return new byte[] {};
-        }
-
+        */
 
         public int ReadVarint()
         {
@@ -46,7 +46,6 @@ namespace GameRevision.GW2Emu.Common.Serialization
             return value;
         }
 
-
         public long ReadVarbyte(int count)
         {
             List<byte> buffer = new List<byte>();
@@ -55,14 +54,12 @@ namespace GameRevision.GW2Emu.Common.Serialization
             return BitConverter.ToInt64(buffer.ToArray(), 0);
         }
 
-
         public char ReadEncodedChar(Encoding encoding)
         {
             int size = encoding.IsSingleByte ? 1 : 2;
             byte[] buffer = ReadBytes (size);
             return encoding.GetChars(buffer)[0];
         }
-
 
         public string ReadUtf16String()
         {
@@ -78,7 +75,6 @@ namespace GameRevision.GW2Emu.Common.Serialization
             return text;
         }
 
-
         public string ReadAsciiString()
         {
             string text = string.Empty;
@@ -93,14 +89,12 @@ namespace GameRevision.GW2Emu.Common.Serialization
             return text;
         }
 
-
         public Vector2 ReadVector2()
         {
             float x = ReadSingle ();
             float y = ReadSingle();
             return new Vector2(x, y);
         }
-
 
         public Vector3 ReadVector3()
         {
@@ -109,7 +103,6 @@ namespace GameRevision.GW2Emu.Common.Serialization
             float z = ReadSingle();
             return new Vector3(x, y, z);
         }
-
 
         public Vector4 ReadVector4()
         {
@@ -120,7 +113,6 @@ namespace GameRevision.GW2Emu.Common.Serialization
             return new Vector4(x, y, z, w);
         }
 
-
         public WorldPosition ReadWorldPosition()
         {
             Vector3 vector = ReadVector3();
@@ -128,13 +120,11 @@ namespace GameRevision.GW2Emu.Common.Serialization
             return new WorldPosition(vector, w);
         }
 
-
         public UID ReadUID()
         {
             byte[] buffer = ReadBytes(16);
             return new UID(buffer);
         }
-
 
         public IPEndPoint ReadIPEndPoint()
         {

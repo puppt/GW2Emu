@@ -53,8 +53,8 @@
     <Compile Include="Handlers\Login.cs" />
     <Compile Include="LoginServerApp.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Session\LoginHandshake.cs" />
     <Compile Include="Session\LoginSession.cs" />
-    <Compile Include="Session\HandshakeState.cs" />
     <Compile Include="Messages\ClientMessageFactory.cs" />
     <Compile Include="Messages\CtoS\P01_UnknownMessage.cs" />
     <Compile Include="Messages\CtoS\P02_UnknownMessage.cs" />
@@ -97,12 +97,7 @@
     <Compile Include="Messages\StoC\P27_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P28_UnknownMessage.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messages\" />
-    <Folder Include="Session\" />
-    <Folder Include="Messages\CtoS\" />
-    <Folder Include="Messages\StoC\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
       <Project>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</Project>

@@ -1,89 +1,81 @@
 using System;
-using GameRevision.GW2Emu.Common.Network;
-using GameRevision.GW2Emu.Common.Messaging;
 using System.Collections.Generic;
 using GameRevision.GW2Emu.Common.Events;
+using GameRevision.GW2Emu.Common.Network;
+using GameRevision.GW2Emu.Common.Messaging;
+using GameRevision.GW2Emu.Common.Cryptography;
+using GameRevision.GW2Emu.Common.Serialization;
 
 namespace GameRevision.GW2Emu.Common.Session
 {
     public abstract class GenericSession : ISession
     {
-
-        public ISessionState State { private get; set; }
-
         private Client client;
         private IEventAggregator aggregator;
-        private Object deserializationLock = new Object();
-        private Object serializationLock = new Object();
+        private IMessageFactory messageFactory;
+        private Handshake handshake;
+        private RC4Encryptor encryptor;
+        private LZ4Compressor compressor;
 
-
-        protected GenericSession(Client client, IEventAggregator aggregator)
+        public GenericSession(Client client, IEventAggregator aggregator, IMessageFactory messageFactory, Handshake handshake)
         {
             this.client = client;
+            this.client.Disconnected += this.OnDisconnected;
+
             this.aggregator = aggregator;
+            this.messageFactory = messageFactory;
+            this.handshake = handshake;
 
-            State = new InvalidState();
+            this.handshake.HandshakeDone += delegate
+            {
+                this.encryptor = new RC4Encryptor(handshake.EncryptionKey);
+                this.compressor = new LZ4Compressor();
+                this.client.DataReceived += this.OnDataReceived;
+            };
         }
-
 
         public void Send(IMessage message)
-        { 
-            lock (serializationLock)
+        {
+            Serializer serializer = new Serializer();
+
+            message.Serialize(serializer);
+
+            this.Send(serializer.GetBytes());
+        }
+
+        public void Send(byte[] buffer)
+        {
+            byte[] compressed = this.compressor.Compress(buffer);
+            byte[] encrypted = this.encryptor.Encrypt(compressed);
+            this.client.Send(encrypted);
+        }
+
+        public void Start()
+        {
+            this.client.Run();
+        }
+
+        public void Disconnect()
+        {
+            this.client.Disconnect();
+        }
+
+        private void OnDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            byte[] data = this.encryptor.Decrypt(e.Buffer);
+
+            IEnumerable<IMessage> messages = this.messageFactory.CreateMessages(data);
+
+            foreach (IMessage message in messages) 
             {
-                // ensure that serialization & sending the messages
-                // is done without disturbances by parallel calls of this
-                Send(State.Serialize(this, message));
+                message.Session = this;
+                this.aggregator.Trigger(message);
             }
         }
 
-
-        /// <summary>
-        /// Send the specified data. (Used internally!)
-        /// Careful with using this directly, as no filtering is done
-        /// and data is just passed through.
-        /// </summary>
-        public void Send(byte[] data)
-        { 
-            client.Send(data);
-        }
-
-
-        public void Kick()
+        private void OnDisconnected(object sender, ClientDisconnectedEventArgs e)
         {
-            client.Kick();
-
-            State = new InvalidState();
-        }
-
-
-        public void NewDataHandler(object sender, NewDataEventArgs e)
-        {
-            var messages = (IEnumerable<IMessage>) new IMessage[] {};
-
-            lock (deserializationLock)
-            {
-                // ensure that the deserialization can run through and change states if necessary,
-                // before any more data can be recieved and deserialized
-                messages = State.Deserialize(this, e.Buffer);
-            }
-
-            foreach (var message in messages) 
-            {
-                // call the template method
-                Trigger(message);
-            }
-        }
-
-
-        public void LostClientHandler(object sender, LostClientEventArgs e)
-        {
-            Trigger(new ClientDisconnectedEvent(this));
-        }
-
-
-        protected void Trigger(IEvent evt)
-        {
-            aggregator.Trigger(evt);
+            this.aggregator.Trigger(new ClientDisconnectedEvent(this));
         }
     }
 }

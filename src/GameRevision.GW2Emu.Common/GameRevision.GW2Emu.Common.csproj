@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -28,7 +28,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Numerics" />
-    <Reference Include="Mono.Security" />
+    <Reference Include="Mono.Security">
+      <HintPath>..\..\lib\Mono.Security.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="LZ4Sharp">
       <HintPath>..\..\lib\LZ4Sharp.dll</HintPath>
@@ -36,6 +38,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network\ConcurrentClientCollection.cs" />
+    <Compile Include="Handshake.cs" />
+    <Compile Include="Messaging\GenericMessage.cs" />
     <Compile Include="ParallelUtils.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\IEvent.cs" />
@@ -55,30 +60,20 @@
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="LZ4Compressor.cs" />
     <Compile Include="Network\Client.cs" />
-    <Compile Include="Network\ClientManager.cs" />
-    <Compile Include="Network\LostClientEventArgs.cs" />
-    <Compile Include="Network\NewClientEventArgs.cs" />
-    <Compile Include="Network\NewDataEventArgs.cs" />
+    <Compile Include="Network\ClientListener.cs" />
+    <Compile Include="Network\ClientDisconnectedEventArgs.cs" />
+    <Compile Include="Network\ClientConnectedEventArgs.cs" />
+    <Compile Include="Network\DataReceivedEventArgs.cs" />
     <Compile Include="Cryptography\CryptoUtils.cs" />
     <Compile Include="Session\ISession.cs" />
-    <Compile Include="Session\ISessionState.cs" />
-    <Compile Include="Session\InvalidState.cs" />
     <Compile Include="Session\GenericSession.cs" />
     <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="Optional.cs" />
     <Compile Include="Messaging\IMessageFactory.cs" />
     <Compile Include="Messaging\GenericMessageFactory.cs" />
-    <Compile Include="Session\ConnectedState.cs" />
     <Compile Include="Events\ClientConnectedEvent.cs" />
     <Compile Include="Events\ClientDisconnectedEvent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Events\" />
-    <Folder Include="Serialization\" />
-    <Folder Include="Math\" />
-    <Folder Include="Messaging\" />
-    <Folder Include="Network\" />
-    <Folder Include="Session\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

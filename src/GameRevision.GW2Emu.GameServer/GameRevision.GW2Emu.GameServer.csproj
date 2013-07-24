@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -951,7 +951,7 @@
     <Compile Include="Messages\StoC\P712_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P713_UnknownMessage.cs" />
     <Compile Include="Messages\StoC\P714_UnknownMessage.cs" />
-    <Compile Include="Session\HandshakeState.cs" />
+    <Compile Include="Session\GameHandshake.cs" />
     <Compile Include="Session\GameSession.cs" />
     <Compile Include="GameServerApp.cs" />
   </ItemGroup>
@@ -962,10 +962,5 @@
       <Name>GameRevision.GW2Emu.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messages\" />
-    <Folder Include="Session\" />
-    <Folder Include="Messages\CtoS\" />
-    <Folder Include="Messages\StoC\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

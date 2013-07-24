@@ -5,12 +5,8 @@ namespace GameRevision.GW2Emu.Common.Session
 {
     public interface ISession
     {
-        ISessionState State { set; }
-
-        void Kick();
-
+        void Disconnect();
 		void Send(IMessage message);
-
-        void Send(byte[] data);
+        void Send(byte[] buffer);
     }
 }

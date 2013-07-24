@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using GameRevision.GW2Emu.Common.Network;
@@ -25,9 +26,9 @@ namespace GameRevision.GW2Emu.Common.Tests
             // its new-client event. we will check if we actually get
             // the new client later on.
             // finally start the manager.
-            var manager = new ClientManager(9999);
-            manager.OnNewClient += OnNewClient;
-            manager.Start();
+            var manager = new ClientListener(IPAddress.Any, 9999);
+            manager.ClientConnected += this.OnClientConnected;
+            manager.Listen();
 
             TestGeneral();
 
@@ -72,7 +73,7 @@ namespace GameRevision.GW2Emu.Common.Tests
 
                 Assert.IsNotNull(client);
 
-                client.Kick();
+                client.Disconnect();
 
                 Assert.That(SpinWait.SpinUntil(() => lostClient, 100), Is.True);
             }
@@ -90,27 +91,26 @@ namespace GameRevision.GW2Emu.Common.Tests
         }
 
 
-        private void OnNewClient(Object sender, NewClientEventArgs e) 
+        private void OnClientConnected(Object sender, ClientConnectedEventArgs e) 
         { 
             newClient = true;
 
             client = e.Client;
 
-            client.OnNewData += OnNewData;
-            client.OnLostClient += OnLostClient;
+            client.DataReceived += OnDataReceived;
+            client.Disconnected += OnClientDisconnected;
         }
 
 
-        private void OnNewData(Object sender, NewDataEventArgs e) 
+        private void OnDataReceived(Object sender, DataReceivedEventArgs e) 
         { 
             newData = true; 
 
             buffer = e.Buffer;
-            dataLen = e.DataLen;
         }
 
-        
-        private void OnLostClient(Object sender, LostClientEventArgs e) 
+
+        private void OnClientDisconnected(Object sender, ClientDisconnectedEventArgs e) 
         { 
             lostClient = true; 
         }
