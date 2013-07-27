@@ -1,7 +1,7 @@
 GW2Emu
 ======
 
-<h4>We are proud to say that this is the only working and open source Guild Wars 2 server emulator!</h4>
+#### We are proud to say that this is the only working and open source Guild Wars 2 server emulator!
 
 #### Developers / authors:
     ACB
@@ -18,3 +18,4 @@ Anyone can help the project by forking, doing some work, and submitting a pull r
 Tools needed:
 - .NET Framework 4.0 or newer / Mono Framework (experimental)
 - MongoDB (when db support gets added)
+- NUnit (for unit testing)
