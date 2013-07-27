@@ -17,7 +17,7 @@ namespace GameRevision.GW2Emu.LoginServer
         {
             this.eventAggregator = new EventAggregator();
 
-            this.clientListener = new ClientListener(IPAddress.Any, 6110);
+            this.clientListener = new ClientListener(IPAddress.Any, 6112);
             this.clientListener.ClientConnected += OnClientConnected;
         }
 
@@ -29,6 +29,11 @@ namespace GameRevision.GW2Emu.LoginServer
         public void Start()
         {
             this.clientListener.Listen();
+
+            while (this.clientListener.Listening)
+            {
+                // do something useful here, eg. read simple server commands
+            }
         }
 
         public void Stop()

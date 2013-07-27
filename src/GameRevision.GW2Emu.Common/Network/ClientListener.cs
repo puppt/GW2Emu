@@ -10,6 +10,14 @@ namespace GameRevision.GW2Emu.Common.Network
         public event EventHandler<ClientConnectedEventArgs> ClientConnected;
         public IPEndPoint EndPoint { get; private set; }
 
+        public bool Listening
+        {
+            get
+            {
+                return this.listening;
+            }
+        }
+
         private const int Backlog = 100;
 
         private event Action Stopped;
@@ -22,11 +30,6 @@ namespace GameRevision.GW2Emu.Common.Network
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.socket.Bind(this.EndPoint);
-        }
-
-        private bool IsListening()
-        {
-            return this.listening;
         }
 
         private bool IsPending()
@@ -61,22 +64,29 @@ namespace GameRevision.GW2Emu.Common.Network
 
             this.socket.Listen(Backlog);
 
-            ParallelUtils.While(this.IsListening, delegate
+            ThreadStart listen = delegate
             {
-                if (this.IsPending())
+                while (this.listening)
                 {
-                    Client client = new Client(this.socket.Accept());
-
-                    this.Stopped += delegate
+                    if (this.IsPending())
                     {
-                        client.Disconnect();
-                    };
+                        Client client = new Client(this.socket.Accept());
 
-                    this.OnClientConnected(client);
+                        this.Stopped += delegate
+                        {
+                            client.Disconnect();
+                        };
+
+                        this.OnClientConnected(client);
+                    }
+
+                    this.FreeWaitingThreads();
                 }
+            };
 
-                this.FreeWaitingThreads();
-            });
+            Thread thread = new Thread(listen);
+            thread.IsBackground = false;
+            thread.Start();
         }
 
         public void Stop()

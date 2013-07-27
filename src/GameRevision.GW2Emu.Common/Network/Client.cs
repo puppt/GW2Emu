@@ -13,6 +13,14 @@ namespace GameRevision.GW2Emu.Common.Network
         public IPEndPoint RemoteEndPoint { get; private set; }
         public IPEndPoint LocalEndPoint { get; private set; }
 
+        public bool Running
+        {
+            get
+            {
+                return this.running;
+            }
+        }
+
         private Socket socket;
         private volatile bool running;
 
@@ -59,27 +67,34 @@ namespace GameRevision.GW2Emu.Common.Network
         {
             this.running = true;
 
-            ParallelUtils.While(this.IsRunning, delegate
+            ThreadStart run = delegate
             {
-                if (this.IsConnected())
+                while (this.running)
                 {
-                    if (this.socket.Available > 0)
+                    if (this.IsConnected())
                     {
-                        // receive data from the socket
-                        byte[] buffer = new byte[this.socket.Available];
-                        this.socket.Receive(buffer);
+                        if (this.socket.Available > 0)
+                        {
+                            // receive data from the socket
+                            byte[] buffer = new byte[this.socket.Available];
+                            this.socket.Receive(buffer);
 
-                        // raise the event
-                        this.OnDataReceived(buffer);
+                            // raise the event
+                            this.OnDataReceived(buffer);
+                        }
                     }
-                }
-                else
-                {
-                    this.Disconnect();
-                }
+                    else
+                    {
+                        this.Disconnect();
+                    }
 
-                this.FreeWaitingThreads();
-            });
+                    this.FreeWaitingThreads();
+                }
+            };
+
+            Thread thread = new Thread(run);
+            thread.IsBackground = false;
+            thread.Start();
         }
 
         public void Send(byte[] data)

@@ -16,7 +16,7 @@ namespace GameRevision.GW2Emu.GameServer
         {
             this.eventAggregator = new EventAggregator();
 
-            this.clientListener = new ClientListener(IPAddress.Any, 6112);
+            this.clientListener = new ClientListener(IPAddress.Any, 7112);
             this.clientListener.ClientConnected += OnClientConnected;
         }
 
@@ -28,6 +28,11 @@ namespace GameRevision.GW2Emu.GameServer
         public void Start()
         {
             this.clientListener.Listen();
+
+            while (this.clientListener.Listening)
+            {
+                // do something useful here, eg. read simple server commands
+            }
         }
 
         public void Stop()

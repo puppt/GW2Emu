@@ -27,7 +27,6 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Numerics" />
     <Reference Include="Mono.Security">
       <HintPath>..\..\lib\Mono.Security.dll</HintPath>
     </Reference>
@@ -35,7 +34,6 @@
     <Reference Include="LZ4Sharp">
       <HintPath>..\..\lib\LZ4Sharp.dll</HintPath>
     </Reference>
-    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handshake.cs" />
