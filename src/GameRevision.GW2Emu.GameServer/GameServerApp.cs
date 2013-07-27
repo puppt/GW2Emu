@@ -16,7 +16,7 @@ namespace GameRevision.GW2Emu.GameServer
         {
             this.eventAggregator = new EventAggregator();
 
-            this.clientListener = new ClientListener(IPAddress.Any, 7112);
+            this.clientListener = new ClientListener(IPAddress.Any, 9112);
             this.clientListener.ClientConnected += OnClientConnected;
         }
 
