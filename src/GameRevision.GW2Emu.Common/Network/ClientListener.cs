@@ -12,6 +12,7 @@ namespace GameRevision.GW2Emu.Common.Network
 
         private const int Backlog = 100;
 
+        private event Action Stopped;
         private Socket socket;
         private volatile bool listening;
 
@@ -46,6 +47,14 @@ namespace GameRevision.GW2Emu.Common.Network
             }
         }
 
+        private void OnStopped()
+        {
+            if (this.Stopped != null)
+            {
+                this.Stopped();
+            }
+        }
+
         public void Listen()
         {
             this.listening = true;
@@ -56,7 +65,14 @@ namespace GameRevision.GW2Emu.Common.Network
             {
                 if (this.IsPending())
                 {
-                    this.OnClientConnected(new Client(this.socket.Accept()));
+                    Client client = new Client(this.socket.Accept());
+
+                    this.Stopped += delegate
+                    {
+                        client.Disconnect();
+                    };
+
+                    this.OnClientConnected(client);
                 }
 
                 this.FreeWaitingThreads();
@@ -66,7 +82,9 @@ namespace GameRevision.GW2Emu.Common.Network
         public void Stop()
         {
             this.listening = false;
+
             this.socket.Close();
+            this.OnStopped();
         }
     }
 }

@@ -12,7 +12,8 @@ namespace GameRevision.GW2Emu.LoginServer.Messages
 {
     public class ClientMessageFactory : GenericMessageFactory
     {
-        protected override IMessage CreateEmptyMessage(ushort header){
+        protected override IMessage CreateEmptyMessage(ushort header)
+        {
             switch (header)
             {
                 case 1:

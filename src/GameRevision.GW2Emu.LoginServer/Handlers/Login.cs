@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using GameRevision.GW2Emu.Common.Events;
+using GameRevision.GW2Emu.Common.Session;
 using CtoS = GameRevision.GW2Emu.LoginServer.Messages.CtoS;
 using StoC = GameRevision.GW2Emu.LoginServer.Messages.StoC;
-using GameRevision.GW2Emu.Common.Session;
 
 namespace GameRevision.GW2Emu.LoginServer.Handlers
 {

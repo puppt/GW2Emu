@@ -12,7 +12,6 @@ namespace GameRevision.GW2Emu.LoginServer
     {
         private IEventAggregator eventAggregator;
         private ClientListener clientListener;
-        private ConcurrentClientCollection clientCollection;
 
         public LoginServerApp()
         {
@@ -20,8 +19,6 @@ namespace GameRevision.GW2Emu.LoginServer
 
             this.clientListener = new ClientListener(IPAddress.Any, 6110);
             this.clientListener.ClientConnected += OnClientConnected;
-
-            this.clientCollection = new ConcurrentClientCollection();
         }
 
         public void RegisterHandlers()
@@ -37,13 +34,10 @@ namespace GameRevision.GW2Emu.LoginServer
         public void Stop()
         {
             this.clientListener.Stop();
-            this.clientCollection.StopAll();
         }
 
         private void OnClientConnected(object sender, ClientConnectedEventArgs e)
         {
-            this.clientCollection.Add(e.Client);
-
             GenericSession session = new LoginSession(e.Client, this.eventAggregator);
             session.Start();
         }
