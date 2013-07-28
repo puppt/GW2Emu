@@ -2,11 +2,14 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using NLog;
 
 namespace GameRevision.GW2Emu.Common.Network
 {
     public sealed class Client
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public event EventHandler<DataReceivedEventArgs> DataReceived;
         public event EventHandler<ClientDisconnectedEventArgs> Disconnected;
 
@@ -77,7 +80,27 @@ namespace GameRevision.GW2Emu.Common.Network
                         {
                             // receive data from the socket
                             byte[] buffer = new byte[this.socket.Available];
-                            this.socket.Receive(buffer);
+
+                            try
+                            {
+                                this.socket.Receive(buffer);
+                            }
+                            catch (SocketException ex)
+                            {
+                                logger.Error("The socket threw an exception:\n{0}\n{1}", ex.Message, ex.StackTrace);
+                                this.Disconnect();
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Error("An unknown exception has occured:\n{0}\n{1}", ex.Message, ex.StackTrace);
+                                this.Disconnect();
+                            }
+
+                            if (buffer.Length == 0)
+                            {
+                                logger.Debug("The buffer is empty, disconnecting");
+                                this.Disconnect();
+                            }
 
                             // raise the event
                             this.OnDataReceived(buffer);
@@ -108,6 +131,8 @@ namespace GameRevision.GW2Emu.Common.Network
 
             this.socket.Close();
             this.OnDisconnected();
+
+            logger.Debug("Client disconnected");
         }
     }
 }

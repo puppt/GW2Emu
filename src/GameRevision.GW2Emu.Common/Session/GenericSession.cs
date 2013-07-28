@@ -5,11 +5,14 @@ using GameRevision.GW2Emu.Common.Network;
 using GameRevision.GW2Emu.Common.Messaging;
 using GameRevision.GW2Emu.Common.Cryptography;
 using GameRevision.GW2Emu.Common.Serialization;
+using NLog;
 
 namespace GameRevision.GW2Emu.Common.Session
 {
     public abstract class GenericSession : ISession
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private Client client;
         private IEventAggregator aggregator;
         private IMessageFactory messageFactory;
@@ -26,11 +29,15 @@ namespace GameRevision.GW2Emu.Common.Session
             this.messageFactory = messageFactory;
             this.handshake = handshake;
 
+            logger.Trace("Session created.");
+
             this.handshake.HandshakeDone += delegate
             {
                 this.encryptor = new RC4Encryptor(handshake.EncryptionKey);
                 this.compressor = new LZ4Compressor();
                 this.client.DataReceived += this.OnDataReceived;
+
+                logger.Trace("Handshake done.");
             };
         }
 
@@ -47,7 +54,10 @@ namespace GameRevision.GW2Emu.Common.Session
         {
             byte[] compressed = this.compressor.Compress(buffer);
             byte[] encrypted = this.encryptor.Encrypt(compressed);
+
             this.client.Send(encrypted);
+
+            logger.Trace("Session sent data ->\n{0}", BitConverter.ToString(buffer).Replace('-', ' '));
         }
 
         public void Start()
@@ -62,9 +72,11 @@ namespace GameRevision.GW2Emu.Common.Session
 
         private void OnDataReceived(object sender, DataReceivedEventArgs e)
         {
-            byte[] data = this.encryptor.Decrypt(e.Buffer);
+            byte[] buffer = this.encryptor.Decrypt(e.Buffer);
 
-            IEnumerable<IMessage> messages = this.messageFactory.CreateMessages(data);
+            logger.Trace("Session received data <-\n{0}", BitConverter.ToString(buffer).Replace('-', ' '));
+
+            IEnumerable<IMessage> messages = this.messageFactory.CreateMessages(buffer);
 
             foreach (IMessage message in messages) 
             {

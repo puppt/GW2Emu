@@ -46,6 +46,10 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -97,7 +101,11 @@
     <Compile Include="Session\LoginHandshake.cs" />
     <Compile Include="Session\LoginSession.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameRevision.GW2Emu.Common\GameRevision.GW2Emu.Common.csproj">
       <Project>{B75C44D7-942E-49BF-BE00-CECBA9E97CB9}</Project>

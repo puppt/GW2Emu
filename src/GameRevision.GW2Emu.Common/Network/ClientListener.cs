@@ -2,11 +2,14 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using NLog;
 
 namespace GameRevision.GW2Emu.Common.Network
 {
     public sealed class ClientListener
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public event EventHandler<ClientConnectedEventArgs> ClientConnected;
         public IPEndPoint EndPoint { get; private set; }
 
@@ -76,6 +79,8 @@ namespace GameRevision.GW2Emu.Common.Network
                         {
                             client.Disconnect();
                         };
+
+                        logger.Debug("Client connected.");
 
                         this.OnClientConnected(client);
                     }

@@ -2,11 +2,14 @@
 using GameRevision.GW2Emu.Common.Network;
 using GameRevision.GW2Emu.Common.Cryptography;
 using GameRevision.GW2Emu.Common.Serialization;
+using NLog;
 
 namespace GameRevision.GW2Emu.Common
 {
     public abstract class Handshake
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public event Action HandshakeDone;
         public byte[] EncryptionKey;
 
@@ -18,7 +21,7 @@ namespace GameRevision.GW2Emu.Common
             this.client.DataReceived += this.OnDataReceived;
         }
 
-        protected abstract void HandlePacket(byte header, byte length, Deserializer deserializer);
+        protected abstract bool HandlePacket(byte header, byte length, Deserializer deserializer);
 
         private void OnDataReceived(object sender, DataReceivedEventArgs e)
         {
@@ -43,7 +46,12 @@ namespace GameRevision.GW2Emu.Common
                         this.OnHandshakeDone();
                         break;
                     default:
-                        this.HandlePacket(header, length, deserializer);
+                        if (!this.HandlePacket(header, length, deserializer))
+                        {
+                            logger.Error("Unknown unencrypted packet, header: 0x{0:X2}, length: 0x{1:X2}", header, length);
+                            this.client.Disconnect();
+                            return;
+                        }
                         break;
                 }
             }

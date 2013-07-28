@@ -13,14 +13,18 @@ namespace GameRevision.GW2Emu.LoginServer.Session
         {
         }
 
-        protected override void HandlePacket(byte header, byte length, Deserializer deserializer)
+        protected override bool HandlePacket(byte header, byte length, Deserializer deserializer)
         {
             if (length == 0x04)
             {
                 deserializer.AppendPosition(2);
                 this.ClientVersion = deserializer.ReadUInt32();
                 deserializer.AppendPosition(8);
+
+                return true;
             }
+
+            return false;
         }
     }
 }

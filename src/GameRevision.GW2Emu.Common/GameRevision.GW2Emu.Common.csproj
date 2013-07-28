@@ -30,6 +30,10 @@
     <Reference Include="Mono.Security">
       <HintPath>..\..\lib\Mono.Security.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="LZ4Sharp">
       <HintPath>..\..\lib\LZ4Sharp.dll</HintPath>

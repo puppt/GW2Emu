@@ -6,6 +6,8 @@ namespace GameRevision.GW2Emu.GameServer
     {
         public static void Main()
         {
+            Console.Title = "GW2Emu game server";
+
             GameServerApp serverApp = new GameServerApp();
 
             // register the event handlers
